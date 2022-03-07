@@ -54,7 +54,7 @@ footer a {
   justify-content: center;
 }
 
-body div {
+body > div {
   align-self: center;
   justify-self: center;
   background-color: white;
@@ -62,13 +62,19 @@ body div {
   width: 90%;
   border-radius: 8px;
   display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 0.2fr;
 }
 
-#new-file-button {
-  position: absolute;
-  justify-self: end;
+/*  MAIN CONTENT */
+
+body > div div {
+  display: grid;
+}
+
+#new-folder-button {
+  justify-self: center;
   align-self: flex-end;
-  margin-right: 10px;
   margin-bottom: 10px;
   font-weight: 900;
   font-size: 20px;

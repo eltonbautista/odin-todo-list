@@ -7,12 +7,16 @@ const loadMainPage = function loadMainPage(cat) {
     // CREATE
     const octocatImage = document.createElement('img');
     const ghLink = document.createElement('a');
-    const newFileButton = document.createElement('button');
+
+    const folderDiv = document.createElement('div');
+    const formDiv = document.createElement('div');
     
-    // ADD FILE BUTTON
-    newFileButton.setAttribute('id', 'new-file-button');
-    newFileButton.append('New File');
-    mainContent.append(newFileButton);
+    // MAIN CONTENT
+    folderDiv.setAttribute('id', 'folder-div');
+    formDiv.setAttribute('id', 'form-div');
+
+    mainContent.append(folderDiv, formDiv);
+
 
 // FOOTER     
     octocatImage.src = `${cat}`;
