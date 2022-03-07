@@ -9,6 +9,7 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         contentBase: path.resolve(__dirname, 'dist'),
+        port: 5500,
         open: true,
         hot: true,
       },
@@ -16,7 +17,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].[contenthash].js',
         clean: true,
-        publicPath: '/',
+        publicPath: '',
 
     },
     module: {

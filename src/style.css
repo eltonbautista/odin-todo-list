@@ -7,6 +7,7 @@
   }
   * {
     margin: 0;
+    border: 1px solid blue;
   }
   html, body {
     height: 100%;
@@ -32,8 +33,47 @@
 body {
     background: red;
     font-family: jost, sans-serif;
+    display: grid;
+    grid-template-rows: 1fr 10fr 0.5fr;
 }
 @font-face {
     font-family: jost;
-    src: url(./Jost-300-Light.otf);
+    src: url(./assets/Jost-300-Light.otf);
+}
+
+header, footer {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+footer a {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: end;
+  justify-content: center;
+}
+
+body div {
+  align-self: center;
+  justify-self: center;
+  background-color: white;
+  height: 90%;
+  width: 90%;
+  border-radius: 8px;
+  display: grid;
+}
+
+#new-file-button {
+  position: absolute;
+  justify-self: end;
+  align-self: flex-end;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-weight: 900;
+  font-size: 20px;
+  border-radius: 5px;
+
+  background-color: black;
+  color: white;
 }
