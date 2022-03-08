@@ -27,7 +27,6 @@ const loadMainPage = function loadMainPage (cat) {
 
 
     const newFolderForm = (function newFolderForm () {
-        const formDiv = document.querySelector('#form-div');
 
         formDiv.innerHTML = 
         `
@@ -37,7 +36,7 @@ const loadMainPage = function loadMainPage (cat) {
                     <div>
                         <div>
                             <label for="folder-name">Folder Name:</label>
-                            <input type="text" name="folder-name" class="folder name" required>
+                            <input type="text" name="folder-name" class="folder name" required maxlength='20'>
                         </div>
                         <div>
                             <label for="folder-description">Description:</label>
@@ -59,6 +58,12 @@ const loadMainPage = function loadMainPage (cat) {
             formFieldset.style.visibility = 'visible';
             e.preventDefault();
         });
+    }());
+
+    const folderContainer = (function divThatContainsFolders () {
+        const buttonFolderDiv = document.createElement('div');
+        buttonFolderDiv.setAttribute('class', 'button-folder-div');
+        folderDiv.append(buttonFolderDiv);
     }());
 
 }; 
