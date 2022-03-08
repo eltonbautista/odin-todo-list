@@ -57,7 +57,7 @@ footer a {
 body > div {
   align-self: center;
   justify-self: center;
-  background-color: white;
+  background-color: wheat;
   height: 90%;
   width: 90%;
   border-radius: 8px;
@@ -71,6 +71,8 @@ body > div {
 body > div div {
   display: grid;
 }
+
+/* FORM DIV */
 
 #new-folder-button {
   justify-self: center;
@@ -90,24 +92,31 @@ body > div div {
   display: grid;
 }
 #form-div fieldset {
-  height: 75%;
   align-self: center;
-  margin-top: 100px;
   visibility: hidden;
 }
+
+#form-div .folder.description {
+  max-width: 202px;
+  min-width: 202px;
+  min-height: 140px;
+  max-height: 152px;
+}
+
+/* FOLDER DIV */
 
 .button-folder-div {
   display: grid;
   grid-auto-flow: column;
   justify-content: start;
-  background-color: wheat;
+  background-color: red;
 }
 
 .button-folder-div button {
   margin-right: 5px;
   margin-left: 5px;
-  max-width: fit-content;
-  max-height: fit-content;
+  max-width: 100%;
+  max-height: 50%;
   align-self: end;
   background: black;
   color: wheat;
@@ -119,4 +128,29 @@ body > div div {
 
 #folder-div {
   grid-template-rows: .1fr 1fr;
+  background-color: wheat;
+}
+
+.todo-display-div {
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100px;
+}
+
+.todo-display-div > div, .todo-display-div p {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.todo-display-div > div {
+  font-size: 24px;
+}
+
+.todo-display-div > div > span {
+  font-weight: 900;
+  font-size: 16px;
+}
+
+.todo-display-div p {
+  overflow: auto;
 }

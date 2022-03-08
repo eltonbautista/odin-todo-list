@@ -40,7 +40,7 @@ const loadMainPage = function loadMainPage (cat) {
                         </div>
                         <div>
                             <label for="folder-description">Description:</label>
-                            <input type="text" name="folder-description" class="folder description" required>
+                            <textarea rows= "5" cols= "30" name="folder-description" class="folder description" required></textarea>
                         </div>
                         <div>
                             <input type="submit" value="Create New Folder" class="folder button">
