@@ -1,4 +1,4 @@
-const loadMainPage = function loadMainPage(cat) {
+const loadMainPage = function loadMainPage (cat) {
     // EXISTING 
     const mainContent = document.querySelector('#main-content');
     const footer = document.querySelector('footer');
@@ -26,8 +26,9 @@ const loadMainPage = function loadMainPage(cat) {
     footer.append(ghLink);
 
 
-    const newFolderForm = (function newFolderForm() {
+    const newFolderForm = (function newFolderForm () {
         const formDiv = document.querySelector('#form-div');
+
         formDiv.innerHTML = 
         `
             <form>
@@ -52,7 +53,13 @@ const loadMainPage = function loadMainPage(cat) {
                 </button>
             </form>
         `
-    })();
+        const newFolderButton = document.querySelector('#new-folder-button');
+        const formFieldset = document.querySelector('#form-div fieldset');
+        newFolderButton.addEventListener('click', (e) => {
+            formFieldset.style.visibility = 'visible';
+            e.preventDefault();
+        });
+    }());
 
 }; 
 export default loadMainPage;
