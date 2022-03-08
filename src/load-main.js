@@ -64,6 +64,10 @@ const loadMainPage = function loadMainPage (cat) {
         const buttonFolderDiv = document.createElement('div');
         buttonFolderDiv.setAttribute('class', 'button-folder-div');
         folderDiv.append(buttonFolderDiv);
+
+        const todoDisplayDiv = document.createElement('div');
+        todoDisplayDiv.setAttribute('class', 'todo-display-div');
+        folderDiv.append(todoDisplayDiv);
     }());
 
 }; 
