@@ -25,5 +25,34 @@ const loadMainPage = function loadMainPage(cat) {
     ghLink.append(octocatImage); 
     footer.append(ghLink);
 
+
+    const newFolderForm = (function newFolderForm() {
+        const formDiv = document.querySelector('#form-div');
+        formDiv.innerHTML = 
+        `
+            <form>
+                <fieldset>
+                    <legend>Create a New Folder</legend>
+                    <div>
+                        <div>
+                            <label for="folder-name">Folder Name:</label>
+                            <input type="text" name="folder-name" class="folder name" required>
+                        </div>
+                        <div>
+                            <label for="folder-description">Description:</label>
+                            <input type="text" name="folder-description" class="folder description" required>
+                        </div>
+                        <div>
+                            <input type="submit" value="Create New Folder" class="folder button">
+                        </div>
+                    </div>
+                </fieldset>
+                <button id="new-folder-button">
+                New Folder
+                </button>
+            </form>
+        `
+    })();
+
 }; 
 export default loadMainPage;

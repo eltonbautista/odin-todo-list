@@ -1,30 +1,24 @@
-const newFolderForm = function newFolderForm() {
-    const formDiv = document.querySelector('#form-div');
-    
+const createFolder = function createFolder() {
+    const form = document.querySelector('#form-div form');
+    const folderButton = document.querySelector('.folder.button');
+    const newFolderButton = document.querySelector('#new-folder-button');
+    const formFieldset = document.querySelector('#form-div fieldset');
+    const formTextInputs = [document.querySelector('.folder.name'),
+     document.querySelector('.folder.description')];
 
-    // CREATE DOM 
-    const folderForm = document.createElement('form');
-    const formField = document.createElement('fieldset');
-    const folderFieldLegend = document.createElement('legend');
-    const newFolderButton = document.createElement('button');
-
-    // APPENDING 
-    folderFieldLegend.append('Create a New Folder');
-    formField.append(folderFieldLegend);
-    folderForm.append(formField);
-    formDiv.append(folderForm);
-
-    // ADD FOLDER BUTTON
-    newFolderButton.setAttribute('id', 'new-folder-button');
-    newFolderButton.append('New Folder');
-    formDiv.append(newFolderButton);
+    const renderFolder = function renderFolder(e) {
+        e.preventDefault();
+        formFieldset.style.visibility = 'hidden';
+        formTextInputs.forEach((e) => e.textContent = '');
+    }
 
 
+    form.addEventListener('submit', renderFolder);
 
-    // const createForm = function createForm() {
-        
-    // }
+    newFolderButton.addEventListener('click', (e) => {
+        formFieldset.style.visibility = 'visible';
+        e.preventDefault();
+    });
 
-    // newFolderButton.addEventListener()
-}
-export default newFolderForm;
+};
+export default createFolder;

@@ -83,3 +83,15 @@ body > div div {
   background-color: black;
   color: white;
 }
+
+#form-div form {
+  height: 50%;
+  align-self: flex-end;
+  display: grid;
+}
+#form-div fieldset {
+  height: 75%;
+  align-self: center;
+  margin-top: 100px;
+  visibility: hidden;
+}
