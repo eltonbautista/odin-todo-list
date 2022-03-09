@@ -21,9 +21,9 @@ const createFolder = function createFolder () {
             today.getDate();
         }
 
-        const createFolderButtons = function createFolderButtons (i) {
+        const createFolderButtons = function createFolderButtons () {
             const folderButton = document.createElement('button');
-            folderButton.setAttribute('data-count', `${i}`);
+            // folderButton.setAttribute('data-count', `${i}`);
             folderButton.innerText = formTextInputs[0].value;
             buttonFolderDiv.append(folderButton);
             myFolderButtons.push(folderButton);
@@ -61,7 +61,7 @@ const createFolder = function createFolder () {
                 myFolderButtons.splice(i, 1);
                 console.log(myFolders);
                 console.log(myFolderButtons);
-
+                console.log(i)
                 todoDescriptionDiv.innerText = '';
                 return i -= 1;
             })
@@ -92,29 +92,34 @@ const createFolder = function createFolder () {
 
     const instant = (function instant () { 
         
-        
         const render = function render () {
             for (let i = 0; i < myFolders.length; i++) {
+                // i = myFolders.length-1;
+                console.log(i)
                 myFolderButtons[i].addEventListener('click', function() {
+                    if (i === myFolders.length - 1) {
                     myFolders[i].renderFolders();
                     myFolders[i].deleteFolder(i);
+                    }
                     
                 })
+                
             }
         }
 
         form.addEventListener('submit', function(e) {
             let i = myFolders.length;
+            
             fillArray(formTextInputs[0].value, formTextInputs[1].value);
-            myFolders[i].createFolderButtons(i);
+            myFolders[i].createFolderButtons();
             render();
             // myFolders[i].createFolderButtons(i).addEventListener('click', function(e) {
             //     //will increment delete button attribute once, hitting delete button will decrement 
             // }, {once: true});
             hideNewFolderButton(e);
-            
             i += 1;
-            
+            console.log(myFolders);
+            console.log(myFolderButtons);
         });
 
         
