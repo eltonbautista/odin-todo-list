@@ -48,10 +48,24 @@ const createFolder = function createFolder () {
 
         const deleteFolder = function deleteFolder (i) {
             const todoDescriptionDiv = document.querySelector('.todo-description-div');
+            const descriptionDivElements = [document.querySelector('.todo-description-div div'), 
+            document.querySelector('.todo-description-div p', document.querySelector('.todo-description-div button'))];
             const deleteFolderButton = document.createElement('button');
             deleteFolderButton.setAttribute('class', `delete-button${i}`);
             deleteFolderButton.append('Delete Folder');
             todoDescriptionDiv.append(deleteFolderButton);
+
+            deleteFolderButton.addEventListener('click', function() {
+                myFolders.splice(i, 1);
+                myFolderButtons[i].remove();
+                myFolderButtons.splice(i, 1);
+                console.log(myFolders);
+                console.log(myFolderButtons);
+
+                todoDescriptionDiv.innerText = '';
+                return i -= 1;
+            })
+            
         }
 
 
@@ -77,18 +91,20 @@ const createFolder = function createFolder () {
     
 
     const instant = (function instant () { 
-        let i = 0;
+        
         
         const render = function render () {
             for (let i = 0; i < myFolders.length; i++) {
                 myFolderButtons[i].addEventListener('click', function() {
                     myFolders[i].renderFolders();
                     myFolders[i].deleteFolder(i);
+                    
                 })
             }
         }
 
         form.addEventListener('submit', function(e) {
+            let i = myFolders.length;
             fillArray(formTextInputs[0].value, formTextInputs[1].value);
             myFolders[i].createFolderButtons(i);
             render();
