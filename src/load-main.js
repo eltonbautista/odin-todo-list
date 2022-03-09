@@ -68,7 +68,13 @@ const loadMainPage = function loadMainPage (cat) {
         const todoDisplayDiv = document.createElement('div');
         todoDisplayDiv.setAttribute('class', 'todo-display-div');
         folderDiv.append(todoDisplayDiv);
+
+        const todoDescriptionDiv = document.createElement('div');
+        todoDescriptionDiv.setAttribute('class', 'todo-description-div');
+        todoDisplayDiv.append(todoDescriptionDiv);
     }());
+
+    
 
 }; 
 export default loadMainPage;

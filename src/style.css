@@ -131,26 +131,26 @@ body > div div {
   background-color: wheat;
 }
 
-.todo-display-div {
+.todo-display-div > div{
   grid-auto-flow: column;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 100px;
 }
 
-.todo-display-div > div, .todo-display-div p {
+.todo-display-div > div > div, .todo-display-div p {
   padding-left: 10px;
   padding-top: 10px;
 }
 
-.todo-display-div > div {
+.todo-display-div > div > div {
   font-size: 24px;
 }
 
-.todo-display-div > div > span {
+.todo-display-div > div > div > span {
   font-weight: 900;
   font-size: 16px;
 }
 
-.todo-display-div p {
+.todo-display-div > div > p {
   overflow: auto;
 }
