@@ -74,82 +74,92 @@ const createFolder = function createFolder () {
 
 
 const mainPageControl = (function mainPageControlModulePattern () {
-        let c = 0;
-        const myFolderButtons = [];
+        let c = -1;
+        // const myFolderButtons = [];
         const myFolders = [];
-        const myRenders = [];
-        const myDeleteButtons = [];
+        // const myRenders = [];
+        // const myDeleteButtons = [];
 
         const fillArray = function pushFoldersIntoArray (folderName, folderDescription) {
             return myFolders.push(folderFactory(folderName, folderDescription));
         };
 
-        const renderFolders = function clickFolderButtonToGenerateFolders (i) {
-            const render = function() {
-                return(
-                todoDescriptionDiv.innerHTML = `
-            <div>
-                ${myFolders[i].folderName}
-                <span>
-                ${myFolders[i].folderDate()}
-                </span>
-            </div>
-            <p>${myFolders[i].folderDescription}</p>
-            
-            `);
-            };
-            myRenders.push(render());
+        const deleteFolderButton = function deleteFolderButton (i) {
+            // const deleteButton = document.querySelector('.todo-description-div button');
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete Folder';
+            deleteButton.dataset.delete = i;
+            todoDescriptionDiv.append(deleteButton);
+            // myDeleteButtons.push(deleteButton);
+            return deleteButton;
         };
 
-        const createFolderButtons = function createFolderButtons () {
+        const folderDescriptionDiv = function (i) {
+
+            const tdcDiv = document.createElement('div');
+            tdcDiv.innerText = myFolders[i].folderName;
+            const tdcSpan = document.createElement('span');
+            tdcSpan.innerText = myFolders[i].folderDate();
+            const tdcP = document.createElement('p');
+            tdcP.innerText = myFolders[i].folderDescription;
+
+            tdcDiv.append(tdcSpan);
+            todoDescriptionDiv.append(tdcDiv);
+            todoDescriptionDiv.append(tdcP);
+
+        }
+
+        // const renderFolders = function clickFolderButtonToGenerateFolders (i) {
+        //     myRenders.push(folderDescriptionDiv(i));
+        //     deleteFolderButton();
+        // };
+
+        const createFolderButtons = function createFolderButtons (i) {
             
-            let i = myFolderButtons.length - 1;
+            // let i = myFolderButtons.length - 1;
             const folderButton = document.createElement('button');
-            folderButton.setAttribute('data-count', `${i += 1}`);
+            // folderButton.setAttribute('data-count', `${i += 1}`);
+            folderButton.dataset.count = i;
             folderButton.innerText = formTextInputs[0].value;
             buttonFolderDiv.append(folderButton);
-            renderFolders(i);
+            // renderFolders(i);
             return folderButton;
         };
 
-        const pushButtonIntoArray = function pushButtonIntoArray () {
-            myFolderButtons.push(createFolderButtons());
-        };
+        // const pushButtonIntoArray = function pushButtonIntoArray () {
+        //     myFolderButtons.push(createFolderButtons());
+        // };
 
         const clearDiv = function clearTodoDescriptionDiv () {
             todoDescriptionDiv.innerText = '';
         };
 
-        const deleteFolderButton = function deleteFolderButton () {
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Delete Folder';
-            deleteButton.dataset.delete = c+=1;
-            todoDescriptionDiv.append(deleteButton);
-            
-            return deleteButton;
-        };
-
         const deleteFolderFunction = function deleteFolderFunction (i) {
+            const deleteButton = document.querySelector('.todo-description-div button');
+            // myFolderButtons.splice(deleteButton.dataset.delete, 1)
+            myFolders.splice(deleteButton.dataset.delete, 1)
+            // myRenders.splice(deleteButton.dataset.delete, 1)
+            // myDeleteButtons.splice(deleteButton.dataset.delete, 1);
+            // myFolderButtons[i].remove();
             clearDiv();
-            myFolderButtons.splice(i, 1)
-            myFolders.splice(i, 1)
-            myRenders.splice(i, 1)
-            myDeleteButtons.splice(i, 1);
         }
-
-
-
-
-
         
 
-        const controllingFunction = function controllingFunction() {
-            for (let i = 0; i < myFolderButtons.length; i++) {
-                myFolderButtons[i].addEventListener('click', function (e) {
-                    clearDiv();
-                    todoDescriptionDiv.innerHTML = myRenders[i];
-                })
+        const controllingFunction = function controllingFunction(i) {
 
+            const buttonFolder = document.querySelector(`.button-folder-div button[data-count="${i}"]`);
+            for (let i = 0; i < myFolders.length; i++) {
+
+                buttonFolder.addEventListener('click', function (e) {
+                    clearDiv();
+                    folderDescriptionDiv(i);
+                    console.log(myFolders);
+                    deleteFolderButton(i);
+                });
+
+                // myDeleteButtons[i].addEventListener('click', function(e) {
+                //     deleteFolderFunction(i);
+                // })
 
             }
             // for (let i = 0; i < myFolderButtons.length; i++) {
@@ -174,11 +184,15 @@ const mainPageControl = (function mainPageControlModulePattern () {
 
 
         return {
-            myFolderButtons,
+            // myFolderButtons,
             myFolders,
-            pushButtonIntoArray,
+            // pushButtonIntoArray,
             controllingFunction,
-            fillArray
+            fillArray,
+            deleteFolderButton,
+            folderDescriptionDiv,
+            createFolderButtons,
+            clearDiv
         }
     }());
 
@@ -200,10 +214,15 @@ const mainPageControl = (function mainPageControlModulePattern () {
         // };
 
         form.addEventListener('submit', function(e) {
-            //let i = myFolders.length;
+            let i = mainPageControl.myFolders.length;
             mainPageControl.fillArray(formTextInputs[0].value, formTextInputs[1].value);
-            mainPageControl.pushButtonIntoArray();
-            mainPageControl.controllingFunction();
+            mainPageControl.createFolderButtons(i);
+            mainPageControl.clearDiv();
+            mainPageControl.folderDescriptionDiv(i);
+            mainPageControl.deleteFolderButton(i);
+            // mainPageControl.pushButtonIntoArray();
+            mainPageControl.controllingFunction(i);
+
             
             //myFolders[i].createFolderButtons();
             //render();
@@ -218,12 +237,6 @@ const mainPageControl = (function mainPageControlModulePattern () {
 
         
     }());
-
-    
-
-    
-
-
 
 };
 export default createFolder;
