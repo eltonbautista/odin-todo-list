@@ -134,20 +134,24 @@ const mainPageControl = (function mainPageControlModulePattern () {
             todoDescriptionDiv.innerText = '';
         };
 
-        const deleteFolderFunction = function deleteFolderFunction (i) {
-            const deleteButton = document.querySelector('.todo-description-div button');
-            // myFolderButtons.splice(deleteButton.dataset.delete, 1)
-            myFolders.splice(deleteButton.dataset.delete, 1)
-            // myRenders.splice(deleteButton.dataset.delete, 1)
-            // myDeleteButtons.splice(deleteButton.dataset.delete, 1);
-            // myFolderButtons[i].remove();
-            clearDiv();
-        }
+        
         
 
         const controllingFunction = function controllingFunction(i) {
 
             const buttonFolder = document.querySelector(`.button-folder-div button[data-count="${i}"]`);
+            let deleteButton = document.querySelector(`.todo-description-div button[data-delete="${i}"]`);
+
+            const deleteFolderFunction = function deleteFolderFunction (i) {
+                // const buttonFolder = document.querySelector(`.button-folder-div button[data-count="${i}"]`);
+                // const deleteButton = document.querySelector('.todo-description-div button');
+                // myFolderButtons.splice(deleteButton.dataset.delete, 1)
+                myFolders.splice(deleteButton.dataset.delete, 1)
+                // myRenders.splice(deleteButton.dataset.delete, 1)
+                // myDeleteButtons.splice(deleteButton.dataset.delete, 1);
+                buttonFolder.remove();
+                clearDiv();
+            }
             for (let i = 0; i < myFolders.length; i++) {
 
                 buttonFolder.addEventListener('click', function (e) {
@@ -155,11 +159,14 @@ const mainPageControl = (function mainPageControlModulePattern () {
                     folderDescriptionDiv(i);
                     console.log(myFolders);
                     deleteFolderButton(i);
+                    console.log(i);
                 });
+                console.log(i);
 
-                // myDeleteButtons[i].addEventListener('click', function(e) {
-                //     deleteFolderFunction(i);
-                // })
+                deleteButton.addEventListener('click', function(e) {
+                    console.log(i)
+                    deleteFolderFunction(i);
+                })
 
             }
             // for (let i = 0; i < myFolderButtons.length; i++) {
