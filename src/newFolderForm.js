@@ -1,7 +1,6 @@
 const createFolder = function createFolder () {
     const myFolders = [];
-    const myFolderButtons = [];
-    let i = 0;
+    // const myFolderButtons = [];
     const form = document.querySelector('#form-div form');
     const formFieldset = document.querySelector('#form-div fieldset');
     // const folderButton = document.querySelector('.folder.button');
@@ -21,16 +20,16 @@ const createFolder = function createFolder () {
             today.getDate();
         }
 
-        const createFolderButtons = function createFolderButtons () {
-            const folderButton = document.createElement('button');
-            // folderButton.setAttribute('data-count', `${i}`);
-            folderButton.innerText = formTextInputs[0].value;
-            buttonFolderDiv.append(folderButton);
-            myFolderButtons.push(folderButton);
-            return folderButton;
-        };
+        // const createFolderButtons = function createFolderButtons () {
+        //     const folderButton = document.createElement('button');
+        //     // folderButton.setAttribute('data-count', `${i}`);
+        //     folderButton.innerText = formTextInputs[0].value;
+        //     buttonFolderDiv.append(folderButton);
+        //     myFolderButtons.push(folderButton);
+        //     return folderButton;
+        // };
 
-        const renderFolders = function clickFolderButtonToGenerateFolders () {
+        const renderFolders = function clickFolderButtonToGenerateFolders (i) {
             const todoDescriptionDiv = document.querySelector('.todo-description-div');
 
             todoDescriptionDiv.innerText = '';
@@ -90,6 +89,56 @@ const createFolder = function createFolder () {
     }
     
 
+
+    const mainPageControl = function mainPageControlModulePattern () {
+        const myFolderButtons = [];
+        let i = 0;
+
+
+        const createFolderButtons = function createFolderButtons () {
+            const folderButton = document.createElement('button');
+            folderButton.setAttribute('data-count', `${i += 1}`);
+            folderButton.innerText = formTextInputs[0].value;
+            buttonFolderDiv.append(folderButton);
+            return folderButton;
+        }
+
+        const pushButtonIntoArray = function pushButtonIntoArray () {
+            myFolderButtons.push(createFolderButtons());
+        };
+
+        
+
+        return {
+            myFolderButtons,
+            pushButtonIntoArray,
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const instant = (function instant () { 
         
         const render = function render () {
@@ -97,15 +146,14 @@ const createFolder = function createFolder () {
                 // i = myFolders.length-1;
                 console.log(i)
                 myFolderButtons[i].addEventListener('click', function() {
-                    if (i === myFolders.length - 1) {
+                    
                     myFolders[i].renderFolders();
                     myFolders[i].deleteFolder(i);
-                    }
                     
-                })
+                });
                 
-            }
-        }
+            };
+        };
 
         form.addEventListener('submit', function(e) {
             let i = myFolders.length;
@@ -123,9 +171,6 @@ const createFolder = function createFolder () {
         });
 
         
-        
-
-
     }());
 
     
