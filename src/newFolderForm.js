@@ -1,9 +1,6 @@
 const createFolder = function createFolder () {
-    // const myFolders = [];
-    // const myFolderButtons = [];
     const form = document.querySelector('#form-div form');
     const formFieldset = document.querySelector('#form-div fieldset');
-    // const folderButton = document.querySelector('.folder.button');
     const formTextInputs = [document.querySelector('.folder.name'),
     document.querySelector('.folder.description')];
     const buttonFolderDiv = document.querySelector('.button-folder-div');
@@ -30,9 +27,7 @@ const createFolder = function createFolder () {
             todoDescriptionDiv.append(deleteButton);
             
             deleteButton.addEventListener('click', function(e) {
-                const buttonFolder = document.querySelector(`.button-folder-div button[data-count="${i}"]`);
-                // const deleteButton = document.querySelector(`.todo-description-div button[data-delete="${i}"]`);
-                // mainPageControl.myFolders[this.dataset.remove] = undefined;
+
                 mainPageControl.myFolders.splice(this.dataset.delete, 1);
                 tdcDiv.remove();
                 tdcSpan.remove();
@@ -74,7 +69,6 @@ const createFolder = function createFolder () {
             tracker,
             deleteFolderButton,
             createFolderButtons
-            // folderDescriptionDiv,
         }
     };
 
@@ -89,26 +83,11 @@ const createFolder = function createFolder () {
 
 
 const mainPageControl = (function mainPageControlModulePattern () {
-        let c = -1;
-        // const myFolderButtons = [];
         const myFolders = [];
-        // const myRenders = [];
-        // const myDeleteButtons = [];
+        
 
         const fillArray = function pushFoldersIntoArray (folderName, folderDescription, i) {
             return myFolders.push(folderFactory(folderName, folderDescription, i));
-        };
-
-
-        const createFolderButtons = function createFolderButtons (i) {
-            
-            
-            console.log(myFolders);
-            folderButton.addEventListener('click', function(e) {
-                myFolders[i].folderDescriptionDiv(i, this);
-                console.log(myFolders);
-            });
-            return folderButton;
         };
 
         const clearDiv = function clearTodoDescriptionDiv () {
@@ -116,38 +95,23 @@ const mainPageControl = (function mainPageControlModulePattern () {
         };
 
         return {
-            // myFolderButtons,
             myFolders,
-            // pushButtonIntoArray,
-            // controllingFunction,
             fillArray,
-            // deleteFolderButton,
-            // folderDescriptionDiv,
-            createFolderButtons,
             clearDiv,
-            // testFunction
+
         }
     }());
 
 
     const instant = (function instant () {
         
-
         form.addEventListener('submit', function(e) {
             let i = mainPageControl.myFolders.length;
-            console.log(i);
             mainPageControl.fillArray(formTextInputs[0].value, formTextInputs[1].value, `${i}`);
             mainPageControl.myFolders[i].createFolderButtons(i);
             mainPageControl.clearDiv();
-            console.log(mainPageControl.myFolders);
-
-            // mainPageControl.controllingFunction(i);
-           // mainPageControl.testFunction(i);
-
             hideNewFolderButton(e);
-            // i+=1;
         });
-
         
     }());
 
