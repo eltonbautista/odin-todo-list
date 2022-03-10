@@ -140,7 +140,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
         const controllingFunction = function controllingFunction(i) {
 
             const buttonFolder = document.querySelector(`.button-folder-div button[data-count="${i}"]`);
-            let deleteButton = document.querySelector(`.todo-description-div button[data-delete="${i}"]`);
+            const deleteButton = document.querySelector(`.todo-description-div button[data-delete="${i}"]`);
 
             const deleteFolderFunction = function deleteFolderFunction (i) {
                 // const buttonFolder = document.querySelector(`.button-folder-div button[data-count="${i}"]`);
@@ -160,8 +160,9 @@ const mainPageControl = (function mainPageControlModulePattern () {
                     console.log(myFolders);
                     deleteFolderButton(i);
                     console.log(i);
+                    console.log(deleteButton);
                 });
-                console.log(i);
+                console.log(deleteButton);
 
                 deleteButton.addEventListener('click', function(e) {
                     console.log(i)
