@@ -72,6 +72,10 @@ const loadMainPage = function loadMainPage (cat) {
         const todoDescriptionDiv = document.createElement('div');
         todoDescriptionDiv.setAttribute('class', 'todo-description-div');
         todoDisplayDiv.append(todoDescriptionDiv);
+
+        const todoCardContainer = document.createElement('div');
+        todoCardContainer.setAttribute('class', 'todo-card-container');
+        todoDisplayDiv.append(todoCardContainer);
     }());
 
     

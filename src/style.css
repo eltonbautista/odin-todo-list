@@ -131,10 +131,16 @@ body > div div {
   background-color: wheat;
 }
 
+.todo-display-div {
+  grid-template-rows: 0.2fr 1fr;
+}
+
+
 .todo-display-div > div{
   grid-auto-flow: column;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.2fr 1fr 0.1fr;
   grid-template-rows: 100px;
+  height: 100%;
 }
 
 .todo-display-div > div > div, .todo-display-div p {
@@ -143,6 +149,7 @@ body > div div {
 }
 
 .todo-display-div > div > div {
+  justify-content: center;
   font-size: 24px;
 }
 
@@ -152,5 +159,14 @@ body > div div {
 }
 
 .todo-display-div > div > p {
-  overflow: auto;
+  /* overflow: auto; */
+  width: 50%;
+}
+
+.todo-display-div > div > button {
+  height: 50%;
+  width: 100%;
+  background-color: red;
+  color: wheat;
+  font-weight: 900;
 }

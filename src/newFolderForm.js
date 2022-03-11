@@ -4,7 +4,6 @@ const createFolder = function createFolder () {
     const formTextInputs = [document.querySelector('.folder.name'),
     document.querySelector('.folder.description')];
     const buttonFolderDiv = document.querySelector('.button-folder-div');
-    const folderDiv = document.querySelector('.todo-display-div');
     const todoDescriptionDiv = document.querySelector('.todo-description-div');
 
 
