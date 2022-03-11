@@ -38,7 +38,7 @@ const createFolder = function createFolder () {
             return deleteButton;
         };
 
-        const createFolderButtons = function(i) {
+            const createFolderButtons = function(i) {
             const folderButton = document.createElement('button');
             folderButton.dataset.count = i;
             folderButton.innerText = folderName;

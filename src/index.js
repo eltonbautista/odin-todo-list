@@ -6,3 +6,4 @@ import createFolder from './newFolderForm';
 
 loadMainPage(octocatIcon);
 createFolder();
+
