@@ -10,7 +10,8 @@ const createFolder = function createFolder () {
     document.querySelector('.folder.description')];
     const buttonFolderDiv = document.querySelector('.button-folder-div');
     const todoDescriptionDiv = document.querySelector('.todo-description-div');
-    const todoCardContainer = document.querySelector('.todo-card-container');
+    const todoListTabsDiv = document.querySelector('.todo-list-tabs-div');
+    const todoDivUnderButtons = document.querySelector('.todo-div-under-buttons');
     
 
 
@@ -109,7 +110,8 @@ const mainPageControl = (function mainPageControlModulePattern () {
 
         const clearDiv = function clearTodoDescriptionDiv () {
             todoDescriptionDiv.innerText = '';
-            todoCardContainer.innerText = '';
+            todoListTabsDiv.innerText = '';
+            todoDivUnderButtons.innerText = '';
         };
 
         return {

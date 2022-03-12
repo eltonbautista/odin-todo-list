@@ -55,7 +55,12 @@ const loadMainPage = function loadMainPage (cat) {
         const newFolderButton = document.querySelector('#new-folder-button');
         const formFieldset = document.querySelector('#form-div fieldset');
         newFolderButton.addEventListener('click', (e) => {
-            formFieldset.style.visibility = 'visible';
+
+            if (formFieldset.style.visibility == 'hidden' || formFieldset.style.visibility == '') {
+                formFieldset.style.visibility = 'visible';
+            } else if (formFieldset.style.visibility == 'visible') {
+                formFieldset.style.visibility = 'hidden';
+            };
             e.preventDefault();
         });
     }());
@@ -76,6 +81,15 @@ const loadMainPage = function loadMainPage (cat) {
         const todoCardContainer = document.createElement('div');
         todoCardContainer.setAttribute('class', 'todo-card-container');
         todoDisplayDiv.append(todoCardContainer);
+
+        const todoListTabsDiv= document.createElement('div');
+        todoListTabsDiv.setAttribute('class', 'todo-list-tabs-div');
+        todoCardContainer.append(todoListTabsDiv);
+
+        const todoDivUnderButtons = document.createElement('div');
+        todoDivUnderButtons.setAttribute('class', 'todo-div-under-buttons');
+        todoCardContainer.append(todoDivUnderButtons);
+
     }());
 
     

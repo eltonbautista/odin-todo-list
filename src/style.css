@@ -136,7 +136,7 @@ body > div div {
 }
 
 
-.todo-display-div > div{
+.todo-display-div > div:first-child{
   grid-auto-flow: column;
   grid-template-columns: 0.2fr 1fr 0.1fr;
   grid-template-rows: 100px;
@@ -169,4 +169,10 @@ body > div div {
   background-color: red;
   color: wheat;
   font-weight: 900;
+}
+
+
+.todo-card-container {
+  display: grid;
+  grid-template-rows: 0.2fr 1fr;
 }
