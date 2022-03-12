@@ -10,6 +10,8 @@ const createFolder = function createFolder () {
     document.querySelector('.folder.description')];
     const buttonFolderDiv = document.querySelector('.button-folder-div');
     const todoDescriptionDiv = document.querySelector('.todo-description-div');
+    const todoCardContainer = document.querySelector('.todo-card-container');
+    
 
 
     const folderFactory = function folderFactory (folderName, folderDescription, tracker) {
@@ -23,7 +25,7 @@ const createFolder = function createFolder () {
         }
         
 
-        const deleteFolderButton = function deleteFolderButton (i, tdcDiv, tdcSpan, tdcP, folderButton) {
+        const deleteFolderButton = function deleteFolderButton (i, tdcDiv, tdcSpan, tdcP, folderButton, addButton) {
             
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Delete Folder';
@@ -37,19 +39,23 @@ const createFolder = function createFolder () {
                 tdcSpan.remove();
                 tdcP.remove();
                 folderButton.remove();
+                addButton.remove();
+
                 this.remove();
 
             })
             return deleteButton;
         };
 
-            const createFolderButtons = function(i) {
+        const createFolderButtons = function(i) {
+
             const folderButton = document.createElement('button');
             folderButton.dataset.count = i;
             folderButton.innerText = folderName;
             buttonFolderDiv.append(folderButton);
 
             folderButton.addEventListener('click', function() {
+
             mainPageControl.clearDiv();
             const tdcDiv = document.createElement('div');
             tdcDiv.innerText = folderName;
@@ -62,16 +68,17 @@ const createFolder = function createFolder () {
             todoDescriptionDiv.append(tdcDiv);
             todoDescriptionDiv.append(tdcP);
 
-            deleteFolderButton(i, tdcDiv, tdcSpan, tdcP, folderButton);
+            deleteFolderButton(i, tdcDiv, tdcSpan, tdcP, folderButton, 
+                mainPageControl.myRenderTodoList[i].addButtonFunction());
+            
+
             })
-            };
+        };
 
         return {
             folderName,
             folderDescription,
             folderDate,
-            tracker,
-            deleteFolderButton,
             createFolderButtons
         }
     };
@@ -88,20 +95,30 @@ const createFolder = function createFolder () {
 
 const mainPageControl = (function mainPageControlModulePattern () {
         const myFolders = [];
+        const myRenderTodoList = [];
         
 
-        const fillArray = function pushFoldersIntoArray (folderName, folderDescription, i) {
+        const pushFolders = function pushFoldersIntoArray (folderName, folderDescription, i) {
             return myFolders.push(folderFactory(folderName, folderDescription, i));
         };
 
+        const pushRender = function pushIntoMyRenderTodoList () {
+            return myRenderTodoList.push(todoListFactory());
+        };
+
+
         const clearDiv = function clearTodoDescriptionDiv () {
             todoDescriptionDiv.innerText = '';
+            todoCardContainer.innerText = '';
         };
 
         return {
             myFolders,
-            fillArray,
+            pushFolders,
             clearDiv,
+            pushRender,
+            myRenderTodoList,
+
 
         }
     }());
@@ -111,8 +128,14 @@ const mainPageControl = (function mainPageControlModulePattern () {
         
         form.addEventListener('submit', function(e) {
             let i = mainPageControl.myFolders.length;
-            mainPageControl.fillArray(formTextInputs[0].value, formTextInputs[1].value, `${i}`);
+            let t = mainPageControl.myRenderTodoList.length;
+
+            mainPageControl.pushFolders(formTextInputs[0].value, formTextInputs[1].value, `${i}`);
+            mainPageControl.pushRender();
+
             mainPageControl.myFolders[i].createFolderButtons(i);
+
+
             mainPageControl.clearDiv();
             hideNewFolderButton(e);
         });
