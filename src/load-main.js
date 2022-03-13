@@ -82,9 +82,9 @@ const loadMainPage = function loadMainPage (cat) {
         todoCardContainer.setAttribute('class', 'todo-card-container');
         todoDisplayDiv.append(todoCardContainer);
 
-        const todoListTabsDiv= document.createElement('div');
-        todoListTabsDiv.setAttribute('class', 'todo-list-tabs-div');
-        todoCardContainer.append(todoListTabsDiv);
+        // const todoListTabsDiv= document.createElement('div');
+        // todoListTabsDiv.setAttribute('class', 'todo-list-tabs-div');
+        // todoCardContainer.append(todoListTabsDiv);
 
         const todoDivUnderButtons = document.createElement('div');
         todoDivUnderButtons.setAttribute('class', 'todo-div-under-buttons');

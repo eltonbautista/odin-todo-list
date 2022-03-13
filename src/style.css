@@ -143,7 +143,7 @@ body > div div {
   height: 100%;
 }
 
-.todo-display-div > div > div, .todo-display-div p {
+.todo-display-div > div, .todo-display-div p {
   padding-left: 10px;
   padding-top: 10px;
 }
@@ -172,7 +172,51 @@ body > div div {
 }
 
 
-.todo-card-container {
+.todo-display-div > .todo-card-container {
   display: grid;
-  grid-template-rows: 0.2fr 1fr;
+  grid-template-rows: 1fr;
+  padding: 0;
+}
+
+.todo-card-container > .todo-div-under-buttons {
+  padding: 10px;
+  justify-content: start;
+  grid-template-columns: 1fr;
+}
+
+.todo-div-under-buttons > div:first-child{
+  align-self: start;
+  font-weight: 900;
+  grid-template-columns: 1fr 0.05fr;
+}
+
+.todo-div-under-buttons div:first-child button {
+  justify-self: center;
+  align-self: center;
+  width: 100%;
+  border-radius: 10px;
+  font-size: 20px;
+  width: 80%;
+  height: 90%;
+  padding: 0;
+}
+
+.todo-div-under-buttons > div > div > form {
+  display: grid;
+  grid-template-columns: 1fr 0.2fr 0.2fr;
+  gap: 5px;
+  font-size: 18px;
+}
+
+.todo-div-under-buttons > div > div > form > div > input{
+  height: 75%;
+  align-self: center;
+}
+
+.todo-div-under-buttons > div > div > form div:nth-child(2), .todo-div-under-buttons > div > div > form div:nth-child(3){
+  grid-auto-flow: column;
+} 
+
+.todo-div-under-buttons > div > div > form div:nth-child(2) > input, .todo-div-under-buttons > div > div > form div:nth-child(3) > input {
+  width: 100px;
 }
