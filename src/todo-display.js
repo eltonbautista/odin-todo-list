@@ -7,14 +7,8 @@ export const todoListFactory = function todoListFactoryFunction () {
         
 
         const renderTodo = function renderTodo () {
-
+            return todoListArray.length;
         }
-
-
-
-
-
-        
 
 
         const addButtonFunction = function addTodoListButton (k) {
@@ -41,8 +35,6 @@ export const todoListFactory = function todoListFactoryFunction () {
         </div>
     
     </form>`
-            
-            
 
 
             addButton.textContent = '+';
@@ -53,27 +45,33 @@ export const todoListFactory = function todoListFactoryFunction () {
             todoDivUnderButtons.append(buttonDiv);
             todoDivUnderButtons.append(divForTodos);
 
+            const test = (function () {
+                let k = 0;
+                addButton.addEventListener('click', function() {
+                    const todoTask = document.querySelector('#todo-task');
+                    const todoStartTime = document.querySelector('#todo-due-date-start');
+                    const todoEndTime = document.querySelector('#todo-due-date-end');
+        
+                        todoListArray.push(newTodo(todoTask.value, todoStartTime.value, todoEndTime.value));
+                        todoListArray[k].createTodo();
+                        k++;
+                    });
+            }());
             
-            addButton.addEventListener('click', function() {
-            
-            const todoTask = document.querySelector('#todo-task');
-            const todoStartTime = document.querySelector('#todo-due-date-start');
-            const todoEndTime = document.querySelector('#todo-due-date-end');
-                
-                todoListArray.push(newTodo(todoTask.value, todoStartTime.value, todoEndTime.value));
-                todoListArray[k].createTodo();
-                k++;
-            })
 
             return addButton;
         }
 
+
+
+
+
         const newTodo = function newTodoFormFunction (task, start, end) {
-            const todoUL = document.querySelector('#todo-ul');
+            
 
 
             const createTodo = function createTodo () {
-
+                const todoUL = document.querySelector('#todo-ul');
                 const todoLI = document.createElement('li');
                 const todoLITask = document.createElement('span');
                 const todoLIStart = document.createElement('span');
@@ -93,8 +91,6 @@ export const todoListFactory = function todoListFactoryFunction () {
 
             };
 
-            
-
 
             return {
                 createTodo,
@@ -104,7 +100,8 @@ export const todoListFactory = function todoListFactoryFunction () {
 
         return {
             addButtonFunction,
-            todoListArray
+            todoListArray,
+            renderTodo,
         }
     }
 

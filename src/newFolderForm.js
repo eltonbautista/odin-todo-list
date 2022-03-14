@@ -27,21 +27,27 @@ const createFolder = function createFolder () {
         
 
         const deleteFolderButton = function deleteFolderButton (i, tdcDiv, tdcSpan, tdcP, folderButton, addButton) {
-            
+            const todoListDiv = document.querySelector('.todo-div-under-buttons > div:last-child');
+            const addButtonDiv = document.querySelector('.todo-div-under-buttons > div:first-child');
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Delete Folder';
             deleteButton.dataset.delete = i;
             todoDescriptionDiv.append(deleteButton);
             
             deleteButton.addEventListener('click', function(e) {
-
+                console.log(this.dataset.delete);
+                mainPageControl.myRenderTodoList.splice(this.dataset.delete, 1);
                 mainPageControl.myFolders.splice(this.dataset.delete, 1);
+                
                 tdcDiv.remove();
                 tdcSpan.remove();
                 tdcP.remove();
                 folderButton.remove();
                 addButton.remove();
+                addButtonDiv.remove();
+                todoListDiv.remove();
 
+                console.log(mainPageControl.myRenderTodoList);
                 this.remove();
 
             })
@@ -49,14 +55,17 @@ const createFolder = function createFolder () {
         };
 
         const createFolderButtons = function(i) {
-            const k = 0;
+            
+            
             const folderButton = document.createElement('button');
             folderButton.dataset.count = i;
             folderButton.innerText = folderName;
             buttonFolderDiv.append(folderButton);
 
             folderButton.addEventListener('click', function() {
-
+            console.log(i);
+            const todoLength = mainPageControl.myRenderTodoList[this.dataset.count].renderTodo();
+            console.log(todoLength);
             mainPageControl.clearDiv();
             const tdcDiv = document.createElement('div');
             tdcDiv.innerText = folderName;
@@ -70,13 +79,18 @@ const createFolder = function createFolder () {
             todoDescriptionDiv.append(tdcP);
 
             deleteFolderButton(i, tdcDiv, tdcSpan, tdcP, folderButton, 
-                mainPageControl.myRenderTodoList[i].addButtonFunction(k));
+                mainPageControl.myRenderTodoList[i].addButtonFunction());
+                console.log(mainPageControl.myRenderTodoList);
             
-            console.log(mainPageControl.myRenderTodoList[0].todoListArray);
+            if (todoLength === 0) {
+                return;
+            } else if (todoLength > 0) {
+                for (let j = 0; j < todoLength; j++) {
+                    mainPageControl.myRenderTodoList[i].todoListArray[j].createTodo();
+                }
+            }
             
-            // for (let k = 0; k < 2; k++) {
-            //     mainPageControl.myRenderTodoList[i].todoListArray[k].createTodo();
-            // };
+
 
             })
         };
@@ -119,6 +133,13 @@ const mainPageControl = (function mainPageControlModulePattern () {
             todoDivUnderButtons.innerText = '';
         };
 
+        // const generateTodoList = function generateTodoList (i, test) {
+        //     for (let j = 0; j < test; j++) {
+        //         mainPageControl.myRenderTodoList[i].todoListArray[j].createTodo();
+        //     };
+        // }
+
+
         return {
             myFolders,
             pushFolders,
@@ -140,7 +161,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
             mainPageControl.pushFolders(formTextInputs[0].value, formTextInputs[1].value, `${i}`);
             mainPageControl.pushRender();
 
-            mainPageControl.myFolders[i].createFolderButtons(i);
+            mainPageControl.myFolders[i].createFolderButtons(t);
 
 
             // mainPageControl.clearDiv();
