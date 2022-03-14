@@ -36,7 +36,7 @@ const createFolder = function createFolder () {
             
             deleteButton.addEventListener('click', function(e) {
                 console.log(this.dataset.delete);
-                mainPageControl.myRenderTodoList.splice(this.dataset.delete, 1);
+                // mainPageControl.myRenderTodoList.splice(this.dataset.delete, 1);
                 mainPageControl.myFolders.splice(this.dataset.delete, 1);
                 
                 tdcDiv.remove();

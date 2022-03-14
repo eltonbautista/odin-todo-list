@@ -11,7 +11,7 @@ export const todoListFactory = function todoListFactoryFunction () {
         }
 
 
-        const addButtonFunction = function addTodoListButton (k) {
+        const addButtonFunction = function addTodoListButton () {
             const todoFormDiv = document.createElement('div');
             const divForTodos = document.createElement('div');
             const buttonDiv = document.createElement('div');
@@ -39,11 +39,12 @@ export const todoListFactory = function todoListFactoryFunction () {
 
             addButton.textContent = '+';
             
+            todoDivUnderButtons.append(buttonDiv);
+            todoDivUnderButtons.append(divForTodos);
             buttonDiv.append(todoFormDiv);
             buttonDiv.append(addButton);
             divForTodos.append(todoUL);
-            todoDivUnderButtons.append(buttonDiv);
-            todoDivUnderButtons.append(divForTodos);
+            
 
             const test = (function () {
                 let k = 0;
