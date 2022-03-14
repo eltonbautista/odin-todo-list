@@ -49,7 +49,7 @@ const createFolder = function createFolder () {
         };
 
         const createFolderButtons = function(i) {
-
+            const k = 0;
             const folderButton = document.createElement('button');
             folderButton.dataset.count = i;
             folderButton.innerText = folderName;
@@ -70,8 +70,13 @@ const createFolder = function createFolder () {
             todoDescriptionDiv.append(tdcP);
 
             deleteFolderButton(i, tdcDiv, tdcSpan, tdcP, folderButton, 
-                mainPageControl.myRenderTodoList[i].addButtonFunction());
+                mainPageControl.myRenderTodoList[i].addButtonFunction(k));
             
+            console.log(mainPageControl.myRenderTodoList[0].todoListArray);
+            
+            // for (let k = 0; k < 2; k++) {
+            //     mainPageControl.myRenderTodoList[i].todoListArray[k].createTodo();
+            // };
 
             })
         };
@@ -138,7 +143,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
             mainPageControl.myFolders[i].createFolderButtons(i);
 
 
-            mainPageControl.clearDiv();
+            // mainPageControl.clearDiv();
             hideNewFolderButton(e);
         });
         
