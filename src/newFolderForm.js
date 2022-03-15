@@ -80,11 +80,11 @@ const createFolder = function createFolder () {
             todoListUI(i, myTodoArray);
             console.log(myTodoArray);
             
-            //  if (myTodoArray.length === 0) {
-            //      return;
-            //  } else if (myTodoArray.length > 0) {
-            //      myTodoArray.forEach(e => e());
-            //  }
+             if (myTodoArray.length === 0) {
+                 return;
+             } else if (myTodoArray.length > 0) {
+                 myTodoArray.forEach(e => e.createTodo());
+             }
 
             })
         };

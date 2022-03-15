@@ -56,11 +56,11 @@ export const todoListUI = function todoListUIFunction (i, myTodoArray) {
 
             const todoListFormFunction = (function todoListFormFunction() {
                 const todoListForm = document.querySelector('#todo-form');
-                let k = 0;
+                // let k = 0;
                 todoListForm.addEventListener('submit', function(e) {
                     
                     myTodoArray.push(newTodoFactory(todoTask.value, todoStartTime.value, todoEndTime.value));
-                    myTodoArray[k++].createTodo();
+                    myTodoArray[myTodoArray.length - 1].createTodo();
                     console.log(myTodoArray);
                     clearForm(e);
                 })
