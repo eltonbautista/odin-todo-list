@@ -1,5 +1,6 @@
 import {todoListUI} from './todo-display';
 import { newTodoFactory } from './todo-list-logic';
+// import storageModulePattern from './local-storage';
 
 
 
@@ -108,15 +109,24 @@ const createFolder = function createFolder () {
 
 const mainPageControl = (function mainPageControlModulePattern () {
         const myFolders = [];
-        
+        const stringMyFolders = [];
         
 
         const pushFolders = function pushFoldersIntoArray (folderName, folderDescription, i) {
-            return myFolders.push(folderFactory(folderName, folderDescription, i));
+             myFolders.push(folderFactory(folderName, folderDescription, i));
+             stringMyFolders.push(JSON.stringify(folderFactory(folderName, folderDescription, i)));
         };
 
+        // const fooLocalStorage = function () {
+        //     let foo = stringMyFolders.length;
+            
+        //     return localStorage.setItem(`key${foo}`, stringMyFolders[foo - 1]);
+            
+        // };
        
-
+        // const loadLocalStorage = function() {
+            
+        // }
 
         const clearDiv = function clearTodoDescriptionDiv () {
             todoDescriptionDiv.innerText = '';
@@ -131,6 +141,9 @@ const mainPageControl = (function mainPageControlModulePattern () {
             myFolders,
             pushFolders,
             clearDiv,
+            stringMyFolders,
+            // fooLocalStorage,
+            // loadLocalStorage
             // pushRender,
             // myRenderTodoList,
 
@@ -140,18 +153,20 @@ const mainPageControl = (function mainPageControlModulePattern () {
 
 
     const instant = (function instant () {
-        
+        // localStorage.clear();
+        // localStorage.getItem(JSON.parse('key1'));
+        // JSON.parse(localStorage.getItem(myFolders[0]));
+        JSON.parse(localStorage.getItem('myFolders'));
         form.addEventListener('submit', function(e) {
             let i = mainPageControl.myFolders.length;
-            // let t = mainPageControl.myRenderTodoList.length;
-            
-            mainPageControl.pushFolders(formTextInputs[0].value, formTextInputs[1].value, `${i}`);
-            // mainPageControl.pushRender();
-            
-            mainPageControl.myFolders[i].createFolderButtons(i);
             
 
-            // mainPageControl.clearDiv();
+            mainPageControl.pushFolders(formTextInputs[0].value, formTextInputs[1].value, `${i}`);
+            
+            mainPageControl.myFolders[i].createFolderButtons(i);
+            console.log(mainPageControl.myFolders);
+            localStorage.setItem('myFolders', JSON.stringify(mainPageControl.myFolders) );
+            
             hideNewFolderButton(e);
         });
         
