@@ -2,6 +2,7 @@ export const todoListFactory = function todoListFactoryFunction () {
     const todoDivUnderButtons = document.querySelector('.todo-div-under-buttons');
     // const buttonDiv = document.querySelector('.todo-div-under-buttons div:first-child');
     const todoListArray = [];
+     
     
 
         
@@ -15,14 +16,16 @@ export const todoListFactory = function todoListFactoryFunction () {
             const todoFormDiv = document.createElement('div');
             const divForTodos = document.createElement('div');
             const buttonDiv = document.createElement('div');
-            const addButton = document.createElement('button');
+            const addButton = document.createElement('input');
+            addButton.setAttribute('type', 'submit');
+            addButton.setAttribute('form', 'todo-form');
             const todoUL = document.createElement('ul');
             todoUL.setAttribute('id', 'todo-ul');
 
             todoFormDiv.innerHTML = `
-    <form action="todo">
+    <form id="todo-form">
     
-        <div><input type="text" name="todo-task" id="todo-task" placeholder="Your task"></div>
+        <div><input type="text" name="todo-task" id="todo-task" placeholder="Your task" required></div>
 
         <div>
             <label for="due-date-start">Start:</label>
@@ -45,10 +48,25 @@ export const todoListFactory = function todoListFactoryFunction () {
             buttonDiv.append(addButton);
             divForTodos.append(todoUL);
             
+            const clearForm = function clearForm (e) {
+                e.preventDefault();
+
+                const todoTask = document.querySelector('#todo-task');
+                const todoStartTime = document.querySelector('#todo-due-date-start');
+                const todoEndTime = document.querySelector('#todo-due-date-end');
+                
+                todoTask.innerText = '';
+                todoStartTime.innerText = '';
+                todoEndTime.innerText = '';
+
+            };
 
             const test = (function () {
                 let k = 0;
-                addButton.addEventListener('click', function() {
+                const todoListForm = document.querySelector('#todo-form');
+                todoListForm.addEventListener('submit', function(e) {
+                    clearForm(e);
+                    
                     const todoTask = document.querySelector('#todo-task');
                     const todoStartTime = document.querySelector('#todo-due-date-start');
                     const todoEndTime = document.querySelector('#todo-due-date-end');
@@ -69,7 +87,6 @@ export const todoListFactory = function todoListFactoryFunction () {
 
         const newTodo = function newTodoFormFunction (task, start, end) {
             
-
 
             const createTodo = function createTodo () {
                 const todoUL = document.querySelector('#todo-ul');
