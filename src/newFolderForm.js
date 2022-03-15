@@ -35,7 +35,6 @@ const createFolder = function createFolder () {
             todoDescriptionDiv.append(deleteButton);
             
             deleteButton.addEventListener('click', function(e) {
-                console.log(this.dataset.delete);
                 
                 mainPageControl.myFolders.splice(this.dataset.delete, 1);
                 
@@ -62,7 +61,7 @@ const createFolder = function createFolder () {
 
 
             folderButton.addEventListener('click', function() {
-            console.log(i);
+            
            
             mainPageControl.clearDiv();
             const tdcDiv = document.createElement('div');
@@ -78,7 +77,7 @@ const createFolder = function createFolder () {
 
             deleteFolderButton(i, tdcDiv, tdcSpan, tdcP, folderButton,);
             todoListUI(i, myTodoArray);
-            console.log(myTodoArray);
+            
             
              if (myTodoArray.length === 0) {
                  return;

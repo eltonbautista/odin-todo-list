@@ -38,30 +38,25 @@ export const todoListUI = function todoListUIFunction (i, myTodoArray) {
             buttonDiv.append(todoFormDiv);
             buttonDiv.append(addButton);
             divForTodos.append(todoUL);
-            const todoTask = document.querySelector('#todo-task');
-            const todoStartTime = document.querySelector('#todo-due-date-start');
-            const todoEndTime = document.querySelector('#todo-due-date-end');
+
+            const todoInputArray = [document.querySelector('#todo-task'), 
+            document.querySelector('#todo-due-date-start'), document.querySelector('#todo-due-date-end')]
             
             const clearForm = function clearForm (e) {
                 e.preventDefault();
 
-                
-                
-                todoTask.value = '';
-                todoStartTime.value = '';
-                todoEndTime.value = '';
+                todoInputArray.forEach(e => e.value = '');
 
             };
 
 
             const todoListFormFunction = (function todoListFormFunction() {
                 const todoListForm = document.querySelector('#todo-form');
-                // let k = 0;
                 todoListForm.addEventListener('submit', function(e) {
                     
-                    myTodoArray.push(newTodoFactory(todoTask.value, todoStartTime.value, todoEndTime.value));
+                    myTodoArray.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
+                        todoInputArray[2].value));
                     myTodoArray[myTodoArray.length - 1].createTodo();
-                    console.log(myTodoArray);
                     clearForm(e);
                 })
             }());
