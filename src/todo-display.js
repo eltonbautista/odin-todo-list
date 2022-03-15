@@ -1,24 +1,15 @@
-export const todoListFactory = function todoListFactoryFunction () {
+import { newTodoFactory } from "./todo-list-logic";
+
+export const todoListUI = function todoListUIFunction (i, myTodoArray) {
+    // const myTodoArray = [];
     const todoDivUnderButtons = document.querySelector('.todo-div-under-buttons');
-    // const buttonDiv = document.querySelector('.todo-div-under-buttons div:first-child');
-    const todoListArray = [];
-     
-    
-
-        
-
-        const renderTodo = function renderTodo () {
-            return todoListArray.length;
-        }
-
-
-        const addButtonFunction = function addTodoListButton () {
-            const todoFormDiv = document.createElement('div');
+    const todoFormDiv = document.createElement('div');
             const divForTodos = document.createElement('div');
             const buttonDiv = document.createElement('div');
             const addButton = document.createElement('input');
             addButton.setAttribute('type', 'submit');
             addButton.setAttribute('form', 'todo-form');
+            addButton.setAttribute('data-add', `${i}`);
             const todoUL = document.createElement('ul');
             todoUL.setAttribute('id', 'todo-ul');
 
@@ -47,79 +38,32 @@ export const todoListFactory = function todoListFactoryFunction () {
             buttonDiv.append(todoFormDiv);
             buttonDiv.append(addButton);
             divForTodos.append(todoUL);
+            const todoTask = document.querySelector('#todo-task');
+            const todoStartTime = document.querySelector('#todo-due-date-start');
+            const todoEndTime = document.querySelector('#todo-due-date-end');
             
             const clearForm = function clearForm (e) {
                 e.preventDefault();
 
-                const todoTask = document.querySelector('#todo-task');
-                const todoStartTime = document.querySelector('#todo-due-date-start');
-                const todoEndTime = document.querySelector('#todo-due-date-end');
                 
-                todoTask.innerText = '';
-                todoStartTime.innerText = '';
-                todoEndTime.innerText = '';
+                
+                todoTask.value = '';
+                todoStartTime.value = '';
+                todoEndTime.value = '';
 
             };
 
-            const test = (function () {
-                let k = 0;
+
+            const todoListFormFunction = (function todoListFormFunction() {
                 const todoListForm = document.querySelector('#todo-form');
+                let k = 0;
                 todoListForm.addEventListener('submit', function(e) {
-                    clearForm(e);
                     
-                    const todoTask = document.querySelector('#todo-task');
-                    const todoStartTime = document.querySelector('#todo-due-date-start');
-                    const todoEndTime = document.querySelector('#todo-due-date-end');
-        
-                        todoListArray.push(newTodo(todoTask.value, todoStartTime.value, todoEndTime.value));
-                        todoListArray[k].createTodo();
-                        k++;
-                    });
+                    myTodoArray.push(newTodoFactory(todoTask.value, todoStartTime.value, todoEndTime.value));
+                    myTodoArray[k++].createTodo();
+                    console.log(myTodoArray);
+                    clearForm(e);
+                })
             }());
-            
-
-            return addButton;
-        }
-
-
-
-
-
-        const newTodo = function newTodoFormFunction (task, start, end) {
-            
-
-            const createTodo = function createTodo () {
-                const todoUL = document.querySelector('#todo-ul');
-                const todoLI = document.createElement('li');
-                const todoLITask = document.createElement('span');
-                const todoLIStart = document.createElement('span');
-                const todoLIEnd = document.createElement('span');
-                const todoCheckbox = document.createElement('input');
-                todoCheckbox.setAttribute('type', 'checkbox');
-
-                todoLITask.innerText = task;
-                todoLIStart.innerText = start;
-                todoLIEnd.innerText = end;
-
-                todoLI.append(todoLITask);
-                todoLI.append(todoLIStart);
-                todoLI.append(todoLIEnd);
-                todoLI.append(todoCheckbox);
-                todoUL.append(todoLI);
-
-            };
-
-
-            return {
-                createTodo,
-            };
-        };
-
-
-        return {
-            addButtonFunction,
-            todoListArray,
-            renderTodo,
-        }
     }
 

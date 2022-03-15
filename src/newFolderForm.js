@@ -1,5 +1,5 @@
-import {todoListFactory} from './todo-display';
-
+import {todoListUI} from './todo-display';
+import { newTodoFactory } from './todo-list-logic';
 
 
 
@@ -36,18 +36,15 @@ const createFolder = function createFolder () {
             
             deleteButton.addEventListener('click', function(e) {
                 console.log(this.dataset.delete);
-                // mainPageControl.myRenderTodoList.splice(this.dataset.delete, 1);
+                
                 mainPageControl.myFolders.splice(this.dataset.delete, 1);
                 
                 tdcDiv.remove();
                 tdcSpan.remove();
                 tdcP.remove();
                 folderButton.remove();
-                addButton.remove();
-                addButtonDiv.remove();
-                todoListDiv.remove();
-
-                console.log(mainPageControl.myRenderTodoList);
+                todoDivUnderButtons.innerText = '';
+                
                 this.remove();
 
             })
@@ -61,11 +58,12 @@ const createFolder = function createFolder () {
             folderButton.dataset.count = i;
             folderButton.innerText = folderName;
             buttonFolderDiv.append(folderButton);
+            const myTodoArray = [];
+
 
             folderButton.addEventListener('click', function() {
             console.log(i);
-            const todoLength = mainPageControl.myRenderTodoList[this.dataset.count].renderTodo();
-            console.log(todoLength);
+           
             mainPageControl.clearDiv();
             const tdcDiv = document.createElement('div');
             tdcDiv.innerText = folderName;
@@ -78,19 +76,15 @@ const createFolder = function createFolder () {
             todoDescriptionDiv.append(tdcDiv);
             todoDescriptionDiv.append(tdcP);
 
-            deleteFolderButton(i, tdcDiv, tdcSpan, tdcP, folderButton, 
-                mainPageControl.myRenderTodoList[i].addButtonFunction());
-                console.log(mainPageControl.myRenderTodoList);
+            deleteFolderButton(i, tdcDiv, tdcSpan, tdcP, folderButton,);
+            todoListUI(i, myTodoArray);
+            console.log(myTodoArray);
             
-            if (todoLength === 0) {
-                return;
-            } else if (todoLength > 0) {
-                for (let j = 0; j < todoLength; j++) {
-                    mainPageControl.myRenderTodoList[i].todoListArray[j].createTodo();
-                }
-            }
-            
-
+            //  if (myTodoArray.length === 0) {
+            //      return;
+            //  } else if (myTodoArray.length > 0) {
+            //      myTodoArray.forEach(e => e());
+            //  }
 
             })
         };
@@ -115,16 +109,14 @@ const createFolder = function createFolder () {
 
 const mainPageControl = (function mainPageControlModulePattern () {
         const myFolders = [];
-        const myRenderTodoList = [];
+        
         
 
         const pushFolders = function pushFoldersIntoArray (folderName, folderDescription, i) {
             return myFolders.push(folderFactory(folderName, folderDescription, i));
         };
 
-        const pushRender = function pushIntoMyRenderTodoList () {
-            return myRenderTodoList.push(todoListFactory());
-        };
+       
 
 
         const clearDiv = function clearTodoDescriptionDiv () {
@@ -133,19 +125,15 @@ const mainPageControl = (function mainPageControlModulePattern () {
             todoDivUnderButtons.innerText = '';
         };
 
-        // const generateTodoList = function generateTodoList (i, test) {
-        //     for (let j = 0; j < test; j++) {
-        //         mainPageControl.myRenderTodoList[i].todoListArray[j].createTodo();
-        //     };
-        // }
+        
 
 
         return {
             myFolders,
             pushFolders,
             clearDiv,
-            pushRender,
-            myRenderTodoList,
+            // pushRender,
+            // myRenderTodoList,
 
 
         }
@@ -156,13 +144,13 @@ const mainPageControl = (function mainPageControlModulePattern () {
         
         form.addEventListener('submit', function(e) {
             let i = mainPageControl.myFolders.length;
-            let t = mainPageControl.myRenderTodoList.length;
-
+            // let t = mainPageControl.myRenderTodoList.length;
+            
             mainPageControl.pushFolders(formTextInputs[0].value, formTextInputs[1].value, `${i}`);
-            mainPageControl.pushRender();
-
-            mainPageControl.myFolders[i].createFolderButtons(t);
-
+            // mainPageControl.pushRender();
+            
+            mainPageControl.myFolders[i].createFolderButtons(i);
+            
 
             // mainPageControl.clearDiv();
             hideNewFolderButton(e);
