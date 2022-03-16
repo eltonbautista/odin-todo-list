@@ -1,6 +1,6 @@
 import { newTodoFactory } from "./todo-list-logic";
 
-export const todoListUI = function todoListUIFunction (i, myTodoArray) {
+export const todoListUI = function todoListUIFunction (i, myTodoArray, myLocalTodo) {
     // const myTodoArray = [];
     const todoDivUnderButtons = document.querySelector('.todo-div-under-buttons');
     const todoFormDiv = document.createElement('div');
@@ -52,13 +52,18 @@ export const todoListUI = function todoListUIFunction (i, myTodoArray) {
 
             const todoListFormFunction = (function todoListFormFunction() {
                 const todoListForm = document.querySelector('#todo-form');
+                
                 todoListForm.addEventListener('submit', function(e) {
                     
                     myTodoArray.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
                         todoInputArray[2].value));
+                    myLocalTodo.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
+                        todoInputArray[2].value));
+                 
                     myTodoArray[myTodoArray.length - 1].createTodo();
                     clearForm(e);
                 })
+
             }());
     }
 

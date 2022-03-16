@@ -21,10 +21,14 @@ export const newTodoFactory = function newTodoFormFunction (task, start, end) {
         todoLI.append(todoCheckbox);
         todoUL.append(todoLI);
 
+
     };
 
 
     return {
         createTodo,
+        task,
+        start,
+        end
     };
 };
