@@ -110,10 +110,7 @@ const createFolder = function createFolder () {
 const mainPageControl = (function mainPageControlModulePattern () {
         const myFolders = [];
         const stringMyFolders = [];
-        const foo = [];
-
-        
-
+        const myLocalStorageArray = [];
 
         const pushFolders = function pushFoldersIntoArray (folderName, folderDescription, i) {
              myFolders.push(folderFactory(folderName, folderDescription, i));
@@ -129,20 +126,23 @@ const mainPageControl = (function mainPageControlModulePattern () {
         // let i = foo.length;
         
 
+        // TO "RESTART" 'foo' which is the array in localStorage holding folders 
+        // set this code: localStorage.setItem('foo', foo); in loadLS() then once "reset" remove it.
+
         window.onload = loadLS;
         function loadLS () {
-            const fooBar = JSON.parse(localStorage.getItem('foo'));
-            fooBar.push(stringMyFolders);
+        localStorage.setItem('myFolders', JSON.stringify(myLocalStorageArray));
+        const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
 
         window.onbeforeunload = closingCode;
         function closingCode () {
-            foo.push(stringMyFolders);
-            localStorage.setItem('foo', JSON.stringify(fooBar));
-            // foo.push(stringMyFolders);
-            // fooSerialized = localStorage.setItem('foo', JSON.stringify(foo));
-            // fooDeserialized = JSON.parse(localStorage.getItem('foo'));
-            // console.log(JSON.parse(localStorage.getItem(`foo${i}`)));
-            // localStorage.setItem(`foo${JSON.parse(localStorage.getItem(`foo${i}`)).length += 1}`, JSON.stringify(foo));
+            
+            if (stringMyFolders.length === 0) {
+                return;
+            } else if (stringMyFolders.length > 0) {
+                deserializeMyFolders.push(stringMyFolders);
+            }
+            localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
             
             return null;
         }; 
@@ -167,15 +167,15 @@ const mainPageControl = (function mainPageControlModulePattern () {
 
 
     const instant = (function instant () {
-        Storage.prototype.setObject = function(key, value) {
-            this.setItem(key, JSON.stringify(value));
-        }
+        // Storage.prototype.setObject = function(key, value) {
+        //     this.setItem(key, JSON.stringify(value));
+        // }
         
-        Storage.prototype.getObject = function(key) {
-            return JSON.parse(this.getItem(key));
-        }
+        // Storage.prototype.getObject = function(key) {
+        //     return JSON.parse(this.getItem(key));
+        // }
 
-        localStorage.getObject('myFolders');
+        // localStorage.getObject('myFolders');
 
         form.addEventListener('submit', function(e) {
             let i = mainPageControl.myFolders.length;
@@ -186,7 +186,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
             console.log(mainPageControl.myFolders);
             
             
-            localStorage.setItem('myFolders', JSON.stringify(mainPageControl.myFolders));
+            // localStorage.setItem('myFolders', JSON.stringify(mainPageControl.myFolders));
 
             console.log(mainPageControl.stringMyFolders);
             hideNewFolderButton(e);
