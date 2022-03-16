@@ -110,31 +110,44 @@ const createFolder = function createFolder () {
 const mainPageControl = (function mainPageControlModulePattern () {
         const myFolders = [];
         const stringMyFolders = [];
+        const foo = [];
+
         
+
 
         const pushFolders = function pushFoldersIntoArray (folderName, folderDescription, i) {
              myFolders.push(folderFactory(folderName, folderDescription, i));
              stringMyFolders.push(JSON.stringify(folderFactory(folderName, folderDescription, i)));
         };
 
-        // const fooLocalStorage = function () {
-        //     let foo = stringMyFolders.length;
-            
-        //     return localStorage.setItem(`key${foo}`, stringMyFolders[foo - 1]);
-            
-        // };
-       
-        // const loadLocalStorage = function() {
-            
-        // }
 
         const clearDiv = function clearTodoDescriptionDiv () {
             todoDescriptionDiv.innerText = '';
             // todoListTabsDiv.innerText = '';
             todoDivUnderButtons.innerText = '';
         };
-
+        // let i = foo.length;
         
+
+        window.onload = loadLS;
+        function loadLS () {
+            const fooBar = JSON.parse(localStorage.getItem('foo'));
+            fooBar.push(stringMyFolders);
+
+        window.onbeforeunload = closingCode;
+        function closingCode () {
+            foo.push(stringMyFolders);
+            localStorage.setItem('foo', JSON.stringify(fooBar));
+            // foo.push(stringMyFolders);
+            // fooSerialized = localStorage.setItem('foo', JSON.stringify(foo));
+            // fooDeserialized = JSON.parse(localStorage.getItem('foo'));
+            // console.log(JSON.parse(localStorage.getItem(`foo${i}`)));
+            // localStorage.setItem(`foo${JSON.parse(localStorage.getItem(`foo${i}`)).length += 1}`, JSON.stringify(foo));
+            
+            return null;
+        }; 
+
+        }
 
 
         return {
@@ -142,6 +155,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
             pushFolders,
             clearDiv,
             stringMyFolders,
+           
             // fooLocalStorage,
             // loadLocalStorage
             // pushRender,
@@ -153,20 +167,28 @@ const mainPageControl = (function mainPageControlModulePattern () {
 
 
     const instant = (function instant () {
-        // localStorage.clear();
-        // localStorage.getItem(JSON.parse('key1'));
-        // JSON.parse(localStorage.getItem(myFolders[0]));
-        JSON.parse(localStorage.getItem('myFolders'));
+        Storage.prototype.setObject = function(key, value) {
+            this.setItem(key, JSON.stringify(value));
+        }
+        
+        Storage.prototype.getObject = function(key) {
+            return JSON.parse(this.getItem(key));
+        }
+
+        localStorage.getObject('myFolders');
+
         form.addEventListener('submit', function(e) {
             let i = mainPageControl.myFolders.length;
-            
 
             mainPageControl.pushFolders(formTextInputs[0].value, formTextInputs[1].value, `${i}`);
             
             mainPageControl.myFolders[i].createFolderButtons(i);
             console.log(mainPageControl.myFolders);
-            localStorage.setItem('myFolders', JSON.stringify(mainPageControl.myFolders) );
             
+            
+            localStorage.setItem('myFolders', JSON.stringify(mainPageControl.myFolders));
+
+            console.log(mainPageControl.stringMyFolders);
             hideNewFolderButton(e);
         });
         
