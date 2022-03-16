@@ -124,7 +124,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
         const myFolders = [];
         const stringMyFolders = [];
         const myLocalTodo = [];
-
+        
         const pushFolders = function pushFoldersIntoArray (folderName, folderDescription, i) {
              myFolders.push(folderFactory(folderName, folderDescription, i));
              stringMyFolders.push(JSON.stringify(folderFactory(folderName, folderDescription, i)));
@@ -142,7 +142,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
 
         window.onload = loadLS;
         function loadLS () {
-            localStorage.clear();
+            // localStorage.clear();
         if(localStorage.myFolders === 'null' || localStorage.length === 0 || localStorage.todo === 'null') {
             localStorage.setItem('myFolders', JSON.stringify(myFolders));
             localStorage.setItem('todo', JSON.stringify([]));
@@ -193,12 +193,17 @@ const mainPageControl = (function mainPageControlModulePattern () {
                     // Object.assign(testSubj.myTodoArray)
 
                     testSubj.createFolderButtons(i).addEventListener('click', function() {
+                        const todoInputArray = [document.querySelector('#todo-task'), 
+            document.querySelector('#todo-due-date-start'), document.querySelector('#todo-due-date-end')];
+
                         testSubj.myTodoArray.forEach(e => {
                             Object.assign(e, newTodoFactory(e.task, e.start, e.end));
                             e.createTodo();
                         });
-
+                        console.log(deserializeMyFolders);
+                        console.log(JSON.parse(deserializeMyFolders[0]).myTodoArray);
                     const delButton = document.querySelector('.todo-description-div > button');
+                    const addButton = document.querySelector('.todo-div-under-buttons > div > input[type="submit"]');
                     testSubj.deleteIndex = function() {
                         
                         delButton.addEventListener('click', function() {
@@ -209,6 +214,17 @@ const mainPageControl = (function mainPageControlModulePattern () {
                         })
                     }
                     testSubj.deleteIndex();
+                    testSubj.addTodo = function() {
+                        addButton.addEventListener('click', function() {
+                            
+                            JSON.parse(deserializeMyFolders[0]).myTodoArray.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
+                                todoInputArray[2].value));
+                                console.log(JSON.parse(deserializeMyFolders[0]).myTodoArray.push('hello'));
+                            // localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+                                console.log(testSubj.myTodoArray);
+                        })
+                    }; testSubj.addTodo();
+
                     },);
                     
                     
