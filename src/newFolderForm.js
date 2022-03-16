@@ -131,9 +131,11 @@ const mainPageControl = (function mainPageControlModulePattern () {
 
         window.onload = loadLS;
         function loadLS () {
-        localStorage.setItem('myFolders', JSON.stringify(myLocalStorageArray));
-        const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
-
+        if(localStorage.myFolders === 'null') {
+            localStorage.setItem('myFolders', JSON.stringify([]));
+        } else {
+            const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
+        // localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
         window.onbeforeunload = closingCode;
         function closingCode () {
             
@@ -146,6 +148,8 @@ const mainPageControl = (function mainPageControlModulePattern () {
             
             return null;
         }; 
+        }
+        
 
         }
 
