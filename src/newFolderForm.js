@@ -35,10 +35,16 @@ const createFolder = function createFolder () {
             deleteButton.dataset.delete = i;
             todoDescriptionDiv.append(deleteButton);
             
+            const deserializedLocalStorageArray = JSON.parse(localStorage.getItem('myFolders'));
+            // const realDeserialized = JSON.parse();
+            const realDeserialized = (i) => JSON.parse(i);
+
             deleteButton.addEventListener('click', function(e) {
                 
                 mainPageControl.myFolders.splice(this.dataset.delete, 1);
-                
+                mainPageControl.stringMyFolders.splice(this.dataset.delete, 1);
+                // deserializedLocalStorageArray.splice(this.dataset.delete, 1);
+                // localStorage.setItem('myFolders', JSON.stringify(deserializedLocalStorageArray));
                 tdcDiv.remove();
                 tdcSpan.remove();
                 tdcP.remove();
@@ -87,13 +93,15 @@ const createFolder = function createFolder () {
              }
 
             })
+            return folderButton;
         };
 
         return {
             folderName,
             folderDescription,
             folderDate,
-            createFolderButtons
+            createFolderButtons,
+            tracker
         }
     };
 
@@ -117,25 +125,30 @@ const mainPageControl = (function mainPageControlModulePattern () {
              stringMyFolders.push(JSON.stringify(folderFactory(folderName, folderDescription, i)));
         };
 
+        
+        // console.log(testObj);
 
         const clearDiv = function clearTodoDescriptionDiv () {
             todoDescriptionDiv.innerText = '';
-            // todoListTabsDiv.innerText = '';
             todoDivUnderButtons.innerText = '';
         };
-        // let i = foo.length;
-        
 
-        // TO "RESTART" 'foo' which is the array in localStorage holding folders 
-        // set this code: localStorage.setItem('foo', foo); in loadLS() then once "reset" remove it.
+        
 
         window.onload = loadLS;
         function loadLS () {
-            // localStorage.myFolders = null;
+
         if(localStorage.myFolders === 'null' || localStorage.length === 0) {
             localStorage.setItem('myFolders', JSON.stringify(stringMyFolders));
         } else {
         const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
+        // const testDeser = JSON.parse(deserializeMyFolders);
+        // const testObj = folderFactory(testDeser.folderName, testDeser.folderDescription);
+        // const testSubject = Object.assign(testDeser, testObj);
+        // console.log(testDeser);
+        // console.log(testSubject);
+        // testDeser.createFolderButtons();
+        
         window.onbeforeunload = closingCode;
         function closingCode () {
 
@@ -149,7 +162,31 @@ const mainPageControl = (function mainPageControlModulePattern () {
             localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
             
             return null;
-        }; 
+        };
+        const instant = (function () {
+            if (deserializeMyFolders.length === 0) {
+                return;
+            } else if(deserializeMyFolders.length > 0) {
+                for (let i = 0; i < deserializeMyFolders.length; i++) {
+                    const testSubj = Object.assign(JSON.parse(deserializeMyFolders[i]), folderFactory(JSON.parse(deserializeMyFolders[i]).folderName,
+                    JSON.parse(deserializeMyFolders[i]).folderDescription, i));
+                    testSubj.createFolderButtons(i).addEventListener('click', function() {
+                    const delButton = document.querySelector('.todo-description-div > button');
+                    testSubj.deleteIndex = function() {
+                        
+                        delButton.addEventListener('click', function() {
+                            mainPageControl.stringMyFolders.splice(this.dataset.delete, 1);
+                            console.log('test');
+                            deserializeMyFolders.splice(testSubj.tracker, 1);
+                            localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+                        })
+                    }
+                    testSubj.deleteIndex();
+                    }, {once: true});
+                    
+                };
+            };
+            }()); 
         };
         };
 
@@ -160,12 +197,6 @@ const mainPageControl = (function mainPageControlModulePattern () {
             clearDiv,
             stringMyFolders,
            
-            // fooLocalStorage,
-            // loadLocalStorage
-            // pushRender,
-            // myRenderTodoList,
-
-
         }
     }());
 
