@@ -131,27 +131,27 @@ const mainPageControl = (function mainPageControlModulePattern () {
 
         window.onload = loadLS;
         function loadLS () {
-        if(localStorage.myFolders === 'null') {
-            localStorage.setItem('myFolders', JSON.stringify([]));
+            // localStorage.myFolders = null;
+        if(localStorage.myFolders === 'null' || localStorage.length === 0) {
+            localStorage.setItem('myFolders', JSON.stringify(stringMyFolders));
         } else {
-            const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
-        // localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+        const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
         window.onbeforeunload = closingCode;
         function closingCode () {
-            
+
             if (stringMyFolders.length === 0) {
                 return;
             } else if (stringMyFolders.length > 0) {
-                deserializeMyFolders.push(stringMyFolders);
+                for (const index of stringMyFolders) {
+                    deserializeMyFolders.push(index);
+                }
             }
             localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
             
             return null;
         }; 
-        }
-        
-
-        }
+        };
+        };
 
 
         return {
