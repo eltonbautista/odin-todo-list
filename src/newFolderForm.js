@@ -145,7 +145,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
             todoDivUnderButtons.innerText = '';
         };
 
-        
+        /* WORK ON LOCAL STORAGE. */
 
         window.onload = loadLS;
         function loadLS () {
@@ -156,7 +156,6 @@ const mainPageControl = (function mainPageControlModulePattern () {
         } else {
         
         const ownScope = (function() {
-
         
             const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
             console.log(deserializeMyFolders);
@@ -189,58 +188,56 @@ const mainPageControl = (function mainPageControlModulePattern () {
         }());
 
         
-        const instant = function () {
-            const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
-            console.log(deserializeMyFolders);
-            if (deserializeMyFolders.length === 0 && myFolders.length === 0) {
-                return;
-            } else if(deserializeMyFolders.length > 0 || myFolders.length >= 0) {
-                for (let i = 0; i < deserializeMyFolders.length; i++) {
+        // const instant = (function () {
+        //     const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
+        //     console.log(deserializeMyFolders);
+        //     if (deserializeMyFolders.length === 0 && myFolders.length === 0) {
+        //         return;
+        //     } else if(deserializeMyFolders.length > 0 || myFolders.length >= 0) {
+        //         for (let i = 0; i < deserializeMyFolders.length; i++) {
                     
-                    console.log(deserializeMyFolders);
-                    const testSubj = Object.assign(deserializeMyFolders[i], folderFactory(deserializeMyFolders[i].folderName,
-                    deserializeMyFolders[i].folderDescription, i, deserializeMyFolders[i].myTodoArray));
+                    
+        //             const testSubj = Object.assign(deserializeMyFolders[i], folderFactory(deserializeMyFolders[i].folderName,
+        //             deserializeMyFolders[i].folderDescription, i, deserializeMyFolders[i].myTodoArray));
 
-                    console.log(testSubj);
-
-                    testSubj.createFolderButtons(i).addEventListener('click', function() {
+        //             testSubj.createFolderButtons(i).addEventListener('click', function() {
                         
                         
-                        const todoInputArray = [document.querySelector('#todo-task'), 
-            document.querySelector('#todo-due-date-start'), document.querySelector('#todo-due-date-end')];
+        //                 const todoInputArray = [document.querySelector('#todo-task'), 
+        //     document.querySelector('#todo-due-date-start'), document.querySelector('#todo-due-date-end')];
                        
-                        testSubj.myClonedArr.forEach(e => {
-                            Object.assign(e, newTodoFactory(e.task, e.start, e.end));
-                            e.createTodo();
-                        });
+        //                 testSubj.myClonedArr.forEach(e => {
+        //                     Object.assign(e, newTodoFactory(e.task, e.start, e.end));
+        //                     e.createTodo();
+        //                 });
                         
-                    const delButton = document.querySelector('.todo-description-div > button');
-                    const addButton = document.querySelector('.todo-div-under-buttons > div > input[type="submit"]');
-                    testSubj.deleteIndex = function() {
+        //             const delButton = document.querySelector('.todo-description-div > button');
+        //             const addButton = document.querySelector('.todo-div-under-buttons > div > input[type="submit"]');
+        //             testSubj.deleteIndex = function() {
                         
-                        delButton.addEventListener('click', function() {
-                            mainPageControl.stringMyFolders.splice(this.dataset.delete, 1);
-                            deserializeMyFolders.splice(testSubj.tracker, 1);
-                            localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
-                        })
-                    }
-                    testSubj.deleteIndex();
-                    testSubj.addTodo = function() {
-                        addButton.addEventListener('click', function() {
-                            deserializeMyFolders[i].myClonedArr.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
-                                todoInputArray[2].value));
-                            console.log(deserializeMyFolders);
-                            localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+        //                 delButton.addEventListener('click', function() {
+        //                     mainPageControl.myFolders.splice(this.dataset.delete, 1);
+        //                     deserializeMyFolders.splice(testSubj.tracker, 1);
+        //                     localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+        //                 })
+        //             }
+        //             testSubj.deleteIndex();
+        //             testSubj.addTodo = function() {
+        //                 addButton.addEventListener('click', function() {
+        //                     deserializeMyFolders[i].myClonedArr.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
+        //                         todoInputArray[2].value));
+        //                     console.log(deserializeMyFolders);
+        //                     localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
 
-                        })
-                    }; testSubj.addTodo(); 
+        //                 })
+        //             }; testSubj.addTodo(); 
 
-                    },);
+        //             },);
                     
                     
-                };
-            };
-            }; instant(); 
+        //         };
+        //     };
+        //     }());  
         };
         };
 
