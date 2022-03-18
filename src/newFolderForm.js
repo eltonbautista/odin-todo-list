@@ -192,7 +192,9 @@ const mainPageControl = (function mainPageControlModulePattern () {
         
         const instant = (function () {
             const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
-                const copiedMyFolders = JSON.parse(localStorage.getItem('myFolders'));
+            const copiedMyFolders = JSON.parse(localStorage.getItem('myFolders'));
+
+            
             console.log(deserializeMyFolders);
             if (deserializeMyFolders.length === 0 && myFolders.length === 0) {
                 return;
@@ -204,10 +206,9 @@ const mainPageControl = (function mainPageControlModulePattern () {
                     deserializeMyFolders[i].folderDescription, i, deserializeMyFolders[i].myTodoArray));
 
                     testSubj.myTodoArray = deserializeMyFolders[i].myTodoArray;
-                    console.log(testSubj);
 
                     testSubj.createFolderButtons(i).addEventListener('click', function() {
-                        
+                        let k = i;
                         
                         const todoInputArray = [document.querySelector('#todo-task'), 
             document.querySelector('#todo-due-date-start'), document.querySelector('#todo-due-date-end')];
@@ -222,8 +223,10 @@ const mainPageControl = (function mainPageControlModulePattern () {
                     testSubj.deleteIndex = function() {
                         
                         delButton.addEventListener('click', function() {
+
+                            console.log(copiedMyFolders.indexOf(testSubj) - 1);
                             mainPageControl.myFolders.splice(this.dataset.delete, 1);
-                            deserializeMyFolders.splice(testSubj.tracker, 1);
+                            deserializeMyFolders.splice(i, 1);
                             localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
                         })
                     }
