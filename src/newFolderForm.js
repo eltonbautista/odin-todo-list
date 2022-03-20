@@ -157,7 +157,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
         
         // const ownScope = (function() {
             
-            const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
+            const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null);
             console.log(deserializeMyFolders);
             const deserializedTodos = JSON.parse(localStorage.getItem('todo'));
             window.addEventListener('visibilitychange', closingCode);
@@ -167,11 +167,17 @@ const mainPageControl = (function mainPageControlModulePattern () {
                 if (deserializeMyFolders.length === 0 && myFolders.length === 0) {
                     console.log('fail');
                     return;
-                } else if (myFolders.length >= 0) {
+                } else if (myFolders.length >= 0 || deserializeMyFolders.length >= 0) {
+                    console.log('test')
+                    console.log(JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null));
                     for (const index of myFolders) {
                         deserializeMyFolders.push(index);
-                        localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+                        localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));  
                     };
+                    for (const folder of deserializeMyFolders) {
+                        const foo = JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null);
+                        localStorage.setItem('myFolders', JSON.stringify(foo));  
+                    } 
                 };
                 if (myLocalTodo.length === 0) {
                     return;
@@ -224,9 +230,8 @@ const mainPageControl = (function mainPageControlModulePattern () {
                         
                         delButton.addEventListener('click', function() {
 
-                            console.log(copiedMyFolders.indexOf(testSubj) - 1);
                             mainPageControl.myFolders.splice(this.dataset.delete, 1);
-                            deserializeMyFolders.splice(i, 1);
+                            deserializeMyFolders[i] = null;
                             localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
                         })
                     }
