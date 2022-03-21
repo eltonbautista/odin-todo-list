@@ -48,9 +48,8 @@ const createFolder = function createFolder () {
             // const realDeserialized = (i) => JSON.parse(i);
 
             deleteButton.addEventListener('click', function(e) {
+                mainPageControl.myFolders[i] = null;
                 
-                mainPageControl.myFolders.splice(this.dataset.delete, 1);
-                mainPageControl.stringMyFolders.splice(this.dataset.delete, 1);
                 // deserializedLocalStorageArray.splice(this.dataset.delete, 1);
                 // localStorage.setItem('myFolders', JSON.stringify(deserializedLocalStorageArray));
                 tdcDiv.remove();
@@ -87,10 +86,11 @@ const createFolder = function createFolder () {
             tdcDiv.append(tdcSpan);
             todoDescriptionDiv.append(tdcDiv);
             todoDescriptionDiv.append(tdcP);
-
+            
             deleteFolderButton(i, tdcDiv, tdcSpan, tdcP, folderButton,);
             todoListUI(i, myTodoArray, mainPageControl.myLocalTodo);
-            console.log(myTodoArray);
+            console.log(mainPageControl.myFolders);
+            console.log(mainPageControl.stringMyFolders);
              if (myTodoArray.length === 0) {
                  return;
              } else if (myTodoArray.length > 0) {
@@ -98,7 +98,7 @@ const createFolder = function createFolder () {
              }
 
             })
-   
+            console.log(myTodoArray);
             return folderButton;
         };
 
@@ -156,6 +156,15 @@ const mainPageControl = (function mainPageControlModulePattern () {
         } else {
         
         // const ownScope = (function() {
+
+            const removeNull = (function removeNull () {
+                const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
+                
+                return localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders.filter(a => a!= null)));
+            }());
+
+
+
             
             const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null);
             console.log(deserializeMyFolders);
@@ -167,17 +176,13 @@ const mainPageControl = (function mainPageControlModulePattern () {
                 if (deserializeMyFolders.length === 0 && myFolders.length === 0) {
                     console.log('fail');
                     return;
-                } else if (myFolders.length >= 0 || deserializeMyFolders.length >= 0) {
-                    console.log('test')
-                    console.log(JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null));
+                } else if (myFolders.length >= 0) {
                     for (const index of myFolders) {
-                        deserializeMyFolders.push(index);
-                        localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));  
-                    };
-                    for (const folder of deserializeMyFolders) {
-                        const foo = JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null);
+                        const foo = JSON.parse(localStorage.getItem('myFolders'));
+                        localStorage.setItem('myFolders', JSON.stringify(foo.filter(a => a != null)));
+                        foo.push(index);
                         localStorage.setItem('myFolders', JSON.stringify(foo));  
-                    } 
+                    }; 
                 };
                 if (myLocalTodo.length === 0) {
                     return;
@@ -196,9 +201,9 @@ const mainPageControl = (function mainPageControlModulePattern () {
         // }());
 
         
-        const instant = (function () {
-            const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
-            const copiedMyFolders = JSON.parse(localStorage.getItem('myFolders'));
+        const instant = function () {
+            const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null);
+            const copiedMyFolders = JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null);
 
             
             console.log(deserializeMyFolders);
@@ -214,7 +219,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
                     testSubj.myTodoArray = deserializeMyFolders[i].myTodoArray;
 
                     testSubj.createFolderButtons(i).addEventListener('click', function() {
-                        let k = i;
+                        
                         
                         const todoInputArray = [document.querySelector('#todo-task'), 
             document.querySelector('#todo-due-date-start'), document.querySelector('#todo-due-date-end')];
@@ -225,14 +230,24 @@ const mainPageControl = (function mainPageControlModulePattern () {
                         });
                         
                     const delButton = document.querySelector('.todo-description-div > button');
+                    delButton.remove();
+                    delButton.removeAttribute('data-delete');
+
+                    const deleteButton = document.createElement('button');
+                    deleteButton.innerText = 'Delete Folder';
+                    deleteButton.setAttribute('data-count', i);
+                    todoDescriptionDiv.append(deleteButton);
                     const addButton = document.querySelector('.todo-div-under-buttons > div > input[type="submit"]');
                     testSubj.deleteIndex = function() {
                         
-                        delButton.addEventListener('click', function() {
-
-                            mainPageControl.myFolders.splice(this.dataset.delete, 1);
+                        deleteButton.addEventListener('click', function() {
+                            
                             deserializeMyFolders[i] = null;
                             localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+                            document.querySelector('.todo-description-div').innerText = '';
+                            document.querySelector('.todo-div-under-buttons div:first-child').innerText = '';
+                            document.querySelector('.todo-div-under-buttons div:last-child').innerText = '';
+                            document.querySelector(`.button-folder-div button[data-count="${this.dataset.count}"]`).remove();
                         })
                     }
                     testSubj.deleteIndex();
@@ -251,7 +266,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
                     
                 };
             };
-            }());  
+            }; instant();
         };
         };
 
@@ -274,12 +289,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
             mainPageControl.pushFolders(formTextInputs[0].value, formTextInputs[1].value, `${i}`);
             
             mainPageControl.myFolders[i].createFolderButtons(i);
-            console.log(mainPageControl.myFolders);
             
-            
-            // localStorage.setItem('myFolders', JSON.stringify(mainPageControl.myFolders));
-
-            console.log(mainPageControl.stringMyFolders);
             hideNewFolderButton(e);
         });
         
