@@ -145,7 +145,6 @@ const mainPageControl = (function mainPageControlModulePattern () {
         };
 
         
-        // console.log(testObj);
 
         const clearDiv = function clearTodoDescriptionDiv () {
             todoDescriptionDiv.innerText = '';
@@ -174,14 +173,12 @@ const mainPageControl = (function mainPageControlModulePattern () {
 
             
             const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null);
-            console.log(deserializeMyFolders);
             const deserializedTodos = JSON.parse(localStorage.getItem('todo'));
             // window.addEventListener('visibilitychange', closingCode);
             window.onbeforeunload = closingCode;
             function closingCode () {
             const instant = (function() {
                 if (deserializeMyFolders.length === 0 && myFolders.length === 0) {
-                    console.log('fail');
                     return;
                 } else if (myFolders.length >= 0) {
                     for (const index of myFolders) {
@@ -213,7 +210,6 @@ const mainPageControl = (function mainPageControlModulePattern () {
             const copiedMyFolders = JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null);
 
             
-            console.log(deserializeMyFolders);
             if (deserializeMyFolders.length === 0 && myFolders.length === 0) {
                 return;
             } else if(deserializeMyFolders.length > 0 || myFolders.length >= 0) {
@@ -265,9 +261,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
                         addButton.addEventListener('click', function() {
                             deserializeMyFolders[i].myTodoArray.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
                                 todoInputArray[2].value));
-                            console.log(deserializeMyFolders);
                             localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
-                            console.log(deserializeMyFolders[i].myTodoArray)
 
                         })
                     }; testSubj.addTodo(); 

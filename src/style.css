@@ -7,7 +7,7 @@
   }
   * {
     margin: 0;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
   }
   html, body {
     height: 100%;
@@ -76,7 +76,7 @@ body > div div {
 
 #new-folder-button {
   justify-self: center;
-  align-self: flex-end;
+  /* align-self: flex-end; */
   margin-bottom: 10px;
   font-weight: 900;
   font-size: 20px;
@@ -97,7 +97,7 @@ body > div div {
 }
 
 #form-div .folder.description {
-  max-width: 202px;
+  max-width: 400px;
   min-width: 202px;
   min-height: 140px;
   max-height: 152px;
@@ -110,6 +110,8 @@ body > div div {
   grid-auto-flow: column;
   justify-content: start;
   background-color: red;
+  border: 5px solid black;
+  border-bottom: none;
 }
 
 .button-folder-div button {
@@ -124,6 +126,11 @@ body > div div {
   font-size: 16px;
   border-radius: 3px;
   padding: 1px 6px;
+}
+#form-div {
+  border: 5px solid black;
+  border-left: none;
+  align-content: start;
 }
 
 #folder-div {
@@ -141,12 +148,26 @@ body > div div {
   grid-template-columns: 0.2fr 1fr 0.1fr;
   grid-template-rows: 100px;
   height: 100%;
+  border: 5px solid black;
+  padding-top: none;
+  padding-left: none;
+  padding-right: 10px;
 }
 
-.todo-display-div > div, .todo-display-div p {
-  padding-left: 10px;
+.todo-description-div > p {
   padding-top: 10px;
+  padding-left: 10px;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
 }
+
+#folder-div > div.todo-display-div > div.todo-description-div > div {
+  align-items: center;
+  justify-content: start;
+  margin-left: 5px;
+}
+
+
 
 .todo-display-div > div > div {
   justify-content: center;
@@ -169,6 +190,7 @@ body > div div {
   background-color: red;
   color: wheat;
   font-weight: 900;
+  align-self: center;
 }
 
 
@@ -183,23 +205,29 @@ body > div div {
   justify-content: start;
   grid-template-columns: 1fr;
   grid-template-rows: 0.15fr auto;
+  border: 5px solid black;
+  border-top: none;
 }
 
 .todo-div-under-buttons > div:first-child{
   align-self: start;
   font-weight: 900;
   grid-template-columns: 1fr 0.05fr;
+  align-items: center;
 }
 
-.todo-div-under-buttons div:first-child button {
-  justify-self: center;
+#folder-div > div.todo-display-div > div.todo-card-container > div > div:nth-child(1) > input[type=submit] {
+  font-size: 16px;
+  margin-left: 5px;
+}
+#todo-form > div:nth-child(3) > label, #todo-form > div:nth-child(2) > label {
   align-self: center;
-  width: 100%;
-  border-radius: 10px;
-  font-size: 20px;
-  width: 80%;
-  height: 90%;
-  padding: 0;
+}
+
+#folder-div > div.todo-display-div > div.todo-card-container > div > div:nth-child(1) {
+  border: 1px solid black;
+  align-items: center;
+  padding: 3px;
 }
 
 .todo-div-under-buttons > div > div > form {
@@ -220,4 +248,21 @@ body > div div {
 
 .todo-div-under-buttons > div > div > form div:nth-child(2) > input, .todo-div-under-buttons > div > div > form div:nth-child(3) > input {
   width: 100px;
+}
+
+#todo-ul {
+  padding: 0;
+}
+
+#todo-ul > li {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 0.1fr);
+  padding-left: 10px;
+  border: 1px solid black;
+  font-size: 16px;
+  margin-top: 5px;
+}
+#todo-ul > li > input[type=checkbox] {
+  justify-self: center;
+  align-self: center;
 }
