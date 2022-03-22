@@ -1,5 +1,5 @@
-export const newTodoFactory = function newTodoFormFunction (task, start, end) {
-    const checked = [];
+export const newTodoFactory = function newTodoFormFunction (task, start, end, x) {
+    let checked = 0;
     let i = 0;
     const createTodo = function createTodo () {
         
@@ -24,27 +24,29 @@ export const newTodoFactory = function newTodoFormFunction (task, start, end) {
         todoUL.append(todoLI);
 
         todoCheckbox.addEventListener('click', function() {
-            
-            if (this.checked === true) {
+            // console.log(x);
+            if (this.checked === true || x === true) {
                 todoLITask.style.textDecoration = 'line-through';
                 todoLIStart.style.textDecoration = 'line-through';
                 todoLIEnd.style.textDecoration = 'line-through';
-                 checked[0] = 1;
-            } else if (this.checked === false) {
+                 checked = 1;
+                 x = 1;
+            } else if (this.checked === false || x === true) {
                 todoLITask.style.textDecoration = 'none';
                 todoLIStart.style.textDecoration = 'none';
                 todoLIEnd.style.textDecoration = 'none';
-                 checked[0] = 0;
+                 checked = 0;
+                 x = 0
             };
-            console.log(checked);
+            // console.log(checked);
         });
 
-        if (checked[0] === 1) {
+        if (checked === 1 || x === 1) {
             todoCheckbox.checked = true;
             todoLITask.style.textDecoration = 'line-through';
             todoLIStart.style.textDecoration = 'line-through';
             todoLIEnd.style.textDecoration = 'line-through';
-        } else if (checked[0] === 0) {
+        } else if (checked === 0 ||x === 0) {
             todoCheckbox.checked = false;
             todoLITask.style.textDecoration = 'none';
             todoLIStart.style.textDecoration = 'none';
@@ -62,6 +64,7 @@ export const newTodoFactory = function newTodoFormFunction (task, start, end) {
         task,
         start,
         end,
-        checked
+        checked, 
+        x
     };
 };

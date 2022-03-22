@@ -211,9 +211,13 @@ const mainPageControl = (function mainPageControlModulePattern () {
 
                     testSubj.myTodoArray = deserializeMyFolders[i].myTodoArray;
                     
+                    const genericTodo = Object.assign({}, newTodoFactory());
+                    const genericArray = [0];
+                    
                     testSubj.createFolderButtons(i).addEventListener('click', function() {
-                        const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null);
-                        
+                        console.log(genericArray);
+                        // const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null);
+                        console.log(genericArray);
                         this.removeEventListener('click', testSubj.pleaseWork);
 
                         const todoInputArray = [document.querySelector('#todo-task'), 
@@ -223,23 +227,39 @@ const mainPageControl = (function mainPageControlModulePattern () {
                         for (let j = 0; j < testSubj.myTodoArray.length; j++) {
                             const e = testSubj.myTodoArray[j];
                             const k = deserializeMyFolders[i].myTodoArray[j];
-                            // Object.assign(e, newTodoFactory(e.task, e.start, e.end));
-                           let l = newTodoFactory(e.task, e.start, e.end);
-                        //    e.createTodo;
-                           console.log(l);
-                           l.checked = k.checked;
-                           l.createTodo();
-                        };
-                   
-                        
+                            console.log(testSubj.myTodoArray);
 
-
-                        // testSubj.myTodoArray.forEach(e => {
-                        //     console.log(deserializeMyFolders[0].myTodoArray);
 
                             
+                            Object.assign(e, newTodoFactory(e.task, e.start, e.end, genericArray[j]));
+                            console.log(genericArray);
+                            // e.checked = genericArray[j];
+                            // e.createTodo = genericTodo.createTodo;
+                            // e.createTodo();
+                            e.createTodo().addEventListener('click', function() {
+                                if (this.checked === true) {
+                                    genericArray[j] = 1;
+                                } else if (this.checked === false) {
+                                    genericArray[j] = 0;
+                                };
+
+                                console.log(genericArray);
+                            });                        
+                        };
+                        
+                        
+
+                        // let lol = 0;
+                        // testSubj.myTodoArray.forEach(e => {
+                        
+                        // Object.assign(e.checked = [1], newTodoFactory(e.task, e.start, e.end));
+                        
+                        // e.createTodo = genericTodo.createTodo;
                         //     e.createTodo();
-                        //     // console.log(test.checked);
+                        //     // console.log(e);
+                        //     console.log(e);
+
+                        //     lol++;
                         // });
 
                         
