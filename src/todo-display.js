@@ -55,21 +55,41 @@ export const todoListUI = function todoListUIFunction (i, myTodoArray, myLocalTo
                 const todoListForm = document.querySelector('#todo-form');
                 
                 todoListForm.addEventListener('submit', function(e) {
-                    console.log(i);
+                    let i = deserializeMyFolders.length - 1;
+                    console.log(myTodoArray);
                     myTodoArray.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
                         todoInputArray[2].value));
                     myLocalTodo.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
                         todoInputArray[2].value));
                     
+                    deserializeMyFolders[i].myTodoArray.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
+                        todoInputArray[2].value));
+                        localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
                     clearForm(e);
                 })
 
                 const fooTest = function() {
                     myTodoArray[myTodoArray.length - 1].createTodo();
                 };
+                console.log()
+                if (myTodoArray.length < deserializeMyFolders[deserializeMyFolders.length -1].myTodoArray.length) {
+                    todoListForm.addEventListener('submit', fooTest);
+                } else {
+                    todoListForm.removeEventListener('submit', fooTest);
+                }
 
-                todoListForm.addEventListener('submit', fooTest);
+                if (deserializeMyFolders[deserializeMyFolders.length -1].myTodoArray < 0) {
+                    todoListForm.addEventListener('submit', fooTest);
+                }
+
+                return {
+                    fooTest
+                }
 
             }());
-    }
+
+            return {
+                todoListFormFunction
+            }
+    };
 

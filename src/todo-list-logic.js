@@ -1,4 +1,4 @@
-export const newTodoFactory = function newTodoFormFunction (task, start, end, x) {
+export const newTodoFactory = function newTodoFormFunction (task, start, end, x, fooTest) {
     let checked = 0;
     let i = 0;
 
@@ -71,6 +71,7 @@ export const newTodoFactory = function newTodoFormFunction (task, start, end, x)
         start,
         end,
         checked, 
-        x
+        x,
+        fooTest
     };
 };

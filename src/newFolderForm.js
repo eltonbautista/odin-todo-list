@@ -177,7 +177,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
                     for (const index of myFolders) {
                         const foo = JSON.parse(localStorage.getItem('myFolders'));
                         localStorage.setItem('myFolders', JSON.stringify(foo.filter(a => a != null)));
-                        foo.push(index);
+                        // foo.push(index);
                         localStorage.setItem('myFolders', JSON.stringify(foo));  
                     }; 
                 };
@@ -359,11 +359,11 @@ const mainPageControl = (function mainPageControlModulePattern () {
             let i = mainPageControl.myFolders.length;
 
             mainPageControl.pushFolders(formTextInputs[0].value, formTextInputs[1].value, `${i}`);
-            // deserializeMyFolders.push(mainPageControl.myFolders[i]);
+            deserializeMyFolders.push(mainPageControl.myFolders[i]);
             mainPageControl.myFolders[i].createFolderButtons(i);
-            // window.location.reload();
+            window.location.reload();
             hideNewFolderButton(e);
-            // localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+            localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
         });
         
     }());
