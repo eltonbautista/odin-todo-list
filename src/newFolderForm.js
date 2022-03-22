@@ -37,12 +37,12 @@ const createFolder = function createFolder () {
             deleteButton.textContent = 'Delete Folder';
             deleteButton.dataset.delete = i;
             todoDescriptionDiv.append(deleteButton);
-            
+            const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
 
             deleteButton.addEventListener('click', function(e) {
                 mainPageControl.myFolders[i] = null;
-                
-
+                deserializeMyFolders[i] = null;
+                localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
                 tdcDiv.remove();
                 tdcSpan.remove();
                 tdcP.remove();
@@ -50,6 +50,7 @@ const createFolder = function createFolder () {
                 todoDivUnderButtons.innerText = '';
                 
                 this.remove();
+                
 
             })
             return deleteButton;
@@ -215,33 +216,69 @@ const mainPageControl = (function mainPageControlModulePattern () {
                     testSubj.myCheckedArray = deserializeMyFolders[i].myCheckedArray;
                     // const genericTodo = Object.assign({}, newTodoFactory());
                     const genericArray = testSubj.myCheckedArray;
+                    // const submitButton = document.querySelector("#folder-div > div.todo-display-div > div.todo-card-container > div > div:nth-child(1) > input[type=submit]");
                     
                     testSubj.createFolderButtons(i).addEventListener('click', function() {
+                        const todoForm = document.querySelector("#todo-form");
+                        const submitButton = document.querySelector("#folder-div > div.todo-display-div > div.todo-card-container > div > div:nth-child(1) > input[type=submit]")
                         console.log(genericArray);
                         // const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null);
                         console.log(genericArray);
                         this.removeEventListener('click', testSubj.pleaseWork);
-
+                        // todoForm.removeEventListener('submit', fooTest);
                         const todoInputArray = [document.querySelector('#todo-task'), 
             document.querySelector('#todo-due-date-start'), document.querySelector('#todo-due-date-end')];
                        
-                        
-                        for (let j = 0; j < testSubj.myTodoArray.length; j++) {
+                        let tester;
+
+                        submitButton.addEventListener('click', function() {
+                            // todoForm.removeEventListener('submit', fooTest);
+                            // testSubj.myTodoArray[testSubj.myTodoArray.length].createTodo();
+                            
+                            deserializeMyFolders[i].myTodoArray.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
+                                todoInputArray[2].value));
+                            localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+                            
+                            // deserializeMyFolders[i].myTodoArray[deserializeMyFolders[i].myTodoArray.length - 1].createTodo();
+                            const j = deserializeMyFolders[i].myTodoArray.length - 1;
+
                             const e = testSubj.myTodoArray[j];
-                            const k = deserializeMyFolders[i].myTodoArray[j];
-                            console.log(testSubj.myTodoArray);
-
-
-                            
                             Object.assign(e, newTodoFactory(e.task, e.start, e.end, genericArray[j]));
-                            
+
                             e.createTodo().addEventListener('click', function() {
                                 if (this.checked === true) {
                                     deserializeMyFolders[i].myCheckedArray[j] = 1;
                                     localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+                                    console.log(deserializeMyFolders[i].myCheckedArray[j])
                                 } else if (this.checked === false) {
                                     deserializeMyFolders[i].myCheckedArray[j] = 0;
                                     localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+                                    console.log(deserializeMyFolders[i].myCheckedArray[j])
+                                };
+
+                                console.log(genericArray);
+                            }); 
+                        });
+
+
+                        for (let j = 0; j < testSubj.myTodoArray.length; j++) {
+                            const e = testSubj.myTodoArray[j];
+                            const k = deserializeMyFolders[i].myTodoArray[j];
+
+                            
+                            Object.assign(e, newTodoFactory(e.task, e.start, e.end, genericArray[j]));
+                            
+
+
+                            e.createTodo().addEventListener('click', function() {
+                                if (this.checked === true) {
+                                    deserializeMyFolders[i].myCheckedArray[j] = 1;
+                                    localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+                                    console.log(deserializeMyFolders[i].myCheckedArray[j])
+                                } else if (this.checked === false) {
+                                    deserializeMyFolders[i].myCheckedArray[j] = 0;
+                                    localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+                                    console.log(deserializeMyFolders[i].myCheckedArray[j])
                                 };
 
                                 console.log(genericArray);
@@ -286,14 +323,14 @@ const mainPageControl = (function mainPageControlModulePattern () {
                         })
                     }
                     testSubj.deleteIndex();
-                    testSubj.addTodo = function() {
-                        addButton.addEventListener('click', function() {
-                            deserializeMyFolders[i].myTodoArray.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
-                                todoInputArray[2].value));
-                            localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
+                    // testSubj.addTodo = (function() {
+                    //     addButton.addEventListener('click', function() {
+                    //         deserializeMyFolders[i].myTodoArray.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
+                    //             todoInputArray[2].value));
+                    //         localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
 
-                        })
-                    }; testSubj.addTodo(); 
+                    //     })
+                    // }()); 
 
                     },);
                     
@@ -318,13 +355,15 @@ const mainPageControl = (function mainPageControlModulePattern () {
     const instant = (function instant () {
 
         form.addEventListener('submit', function(e) {
+            const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
             let i = mainPageControl.myFolders.length;
 
             mainPageControl.pushFolders(formTextInputs[0].value, formTextInputs[1].value, `${i}`);
-            
+            // deserializeMyFolders.push(mainPageControl.myFolders[i]);
             mainPageControl.myFolders[i].createFolderButtons(i);
-            
+            // window.location.reload();
             hideNewFolderButton(e);
+            // localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
         });
         
     }());

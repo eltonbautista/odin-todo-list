@@ -1,6 +1,9 @@
 export const newTodoFactory = function newTodoFormFunction (task, start, end, x) {
     let checked = 0;
     let i = 0;
+
+
+    
     const createTodo = function createTodo () {
         
 
@@ -22,6 +25,8 @@ export const newTodoFactory = function newTodoFormFunction (task, start, end, x)
         todoLI.append(todoLIEnd);
         todoLI.append(todoCheckbox);
         todoUL.append(todoLI);
+        
+        // const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null);
 
         todoCheckbox.addEventListener('click', function() {
             // console.log(x);
@@ -31,6 +36,7 @@ export const newTodoFactory = function newTodoFormFunction (task, start, end, x)
                 todoLIEnd.style.textDecoration = 'line-through';
                  checked = 1;
                  x = 1;
+                 localStorage.setItem('test', x);
             } else if (this.checked === false || x === true) {
                 todoLITask.style.textDecoration = 'none';
                 todoLIStart.style.textDecoration = 'none';
@@ -56,7 +62,7 @@ export const newTodoFactory = function newTodoFormFunction (task, start, end, x)
         return todoCheckbox;
     };
 
-    
+
 
     
     return {

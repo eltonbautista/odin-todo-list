@@ -51,21 +51,24 @@ export const todoListUI = function todoListUIFunction (i, myTodoArray, myLocalTo
 
 
             const todoListFormFunction = (function todoListFormFunction() {
+                const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders'));
                 const todoListForm = document.querySelector('#todo-form');
                 
                 todoListForm.addEventListener('submit', function(e) {
-                    
+                    console.log(i);
                     myTodoArray.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
                         todoInputArray[2].value));
                     myLocalTodo.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
                         todoInputArray[2].value));
-                    testArr.push(newTodoFactory(todoInputArray[0].value, todoInputArray[1].value,
-                        todoInputArray[2].value));
-
-
-                    myTodoArray[myTodoArray.length - 1].createTodo();
+                    
                     clearForm(e);
                 })
+
+                const fooTest = function() {
+                    myTodoArray[myTodoArray.length - 1].createTodo();
+                };
+
+                todoListForm.addEventListener('submit', fooTest);
 
             }());
     }
