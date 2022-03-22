@@ -18,6 +18,7 @@ const createFolder = function createFolder () {
 
     const folderFactory = function folderFactory (folderName, folderDescription, tracker, todoArr) {
         const myTodoArray = [];
+        const myCheckedArray = [0];
 
         const folderDate = function dateToString () {
             let date;
@@ -114,7 +115,8 @@ const createFolder = function createFolder () {
             tracker,
             myTodoArray,
             renderTodos,
-            pleaseWork
+            pleaseWork,
+            myCheckedArray
         }
     };
 
@@ -210,9 +212,9 @@ const mainPageControl = (function mainPageControlModulePattern () {
                     deserializeMyFolders[i].folderDescription, i, deserializeMyFolders[i].myTodoArray));
 
                     testSubj.myTodoArray = deserializeMyFolders[i].myTodoArray;
-                    
-                    const genericTodo = Object.assign({}, newTodoFactory());
-                    const genericArray = [0];
+                    testSubj.myCheckedArray = deserializeMyFolders[i].myCheckedArray;
+                    // const genericTodo = Object.assign({}, newTodoFactory());
+                    const genericArray = testSubj.myCheckedArray;
                     
                     testSubj.createFolderButtons(i).addEventListener('click', function() {
                         console.log(genericArray);
@@ -232,15 +234,14 @@ const mainPageControl = (function mainPageControlModulePattern () {
 
                             
                             Object.assign(e, newTodoFactory(e.task, e.start, e.end, genericArray[j]));
-                            console.log(genericArray);
-                            // e.checked = genericArray[j];
-                            // e.createTodo = genericTodo.createTodo;
-                            // e.createTodo();
+                            
                             e.createTodo().addEventListener('click', function() {
                                 if (this.checked === true) {
-                                    genericArray[j] = 1;
+                                    deserializeMyFolders[i].myCheckedArray[j] = 1;
+                                    localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
                                 } else if (this.checked === false) {
-                                    genericArray[j] = 0;
+                                    deserializeMyFolders[i].myCheckedArray[j] = 0;
+                                    localStorage.setItem('myFolders', JSON.stringify(deserializeMyFolders));
                                 };
 
                                 console.log(genericArray);
