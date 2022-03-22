@@ -18,8 +18,6 @@ const createFolder = function createFolder () {
 
     const folderFactory = function folderFactory (folderName, folderDescription, tracker, todoArr) {
         const myTodoArray = [];
-        
-        const myClonedArr = todoArr;
 
         const folderDate = function dateToString () {
             let date;
@@ -29,29 +27,21 @@ const createFolder = function createFolder () {
             today.getDate();
         }
         
-        const clonedArrFunction = () => {
-            return [...todoArr]
-        }
+
 
         // const myClonedTodo = ;
 
         const deleteFolderButton = function deleteFolderButton (i, tdcDiv, tdcSpan, tdcP, folderButton, addButton) {
-            const todoListDiv = document.querySelector('.todo-div-under-buttons > div:last-child');
-            const addButtonDiv = document.querySelector('.todo-div-under-buttons > div:first-child');
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Delete Folder';
             deleteButton.dataset.delete = i;
             todoDescriptionDiv.append(deleteButton);
             
-            // const deserializedLocalStorageArray = JSON.parse(localStorage.getItem('myFolders'));
-            // // const realDeserialized = JSON.parse();
-            // const realDeserialized = (i) => JSON.parse(i);
 
             deleteButton.addEventListener('click', function(e) {
                 mainPageControl.myFolders[i] = null;
                 
-                // deserializedLocalStorageArray.splice(this.dataset.delete, 1);
-                // localStorage.setItem('myFolders', JSON.stringify(deserializedLocalStorageArray));
+
                 tdcDiv.remove();
                 tdcSpan.remove();
                 tdcP.remove();
@@ -68,7 +58,10 @@ const createFolder = function createFolder () {
             if (myTodoArray.length === 0) {
                 return;
             } else if (myTodoArray.length > 0 ) {
-                myTodoArray.forEach(e => e.createTodo());
+                myTodoArray.forEach(e => {
+                    e.createTodo();
+                    // e.checkTodo();
+                });
             }
         }
         
@@ -100,7 +93,7 @@ const createFolder = function createFolder () {
             
             deleteFolderButton(i, tdcDiv, tdcSpan, tdcP, folderButton,);
             todoListUI(i, myTodoArray, mainPageControl.myLocalTodo, testArr);
-        
+            
             })
 
             folderButton.addEventListener('click', pleaseWork);
@@ -121,9 +114,6 @@ const createFolder = function createFolder () {
             tracker,
             myTodoArray,
             renderTodos,
-            // myClonedTodo,
-            clonedArrFunction,
-            myClonedArr,
             pleaseWork
         }
     };
@@ -223,7 +213,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
                     
 
                     testSubj.createFolderButtons(i).addEventListener('click', function() {
-
+                        
                         
                         this.removeEventListener('click', testSubj.pleaseWork);
 
@@ -232,8 +222,16 @@ const mainPageControl = (function mainPageControlModulePattern () {
                        
                         testSubj.myTodoArray.forEach(e => {
                             Object.assign(e, newTodoFactory(e.task, e.start, e.end));
-                            e.createTodo();
+                            e.createTodo().addEventListener('click', function() {
+                                localStorage.setItem(`checked_${i}`, this.checked);
+
+                                
+                                if(this.checked === true) {
+                                    document.querySelector("#todo-ul > li:nth-child(1) > span:nth-child(1)").style.textDecoration = 'line-through';
+                                }
+                            })
                         });
+
                         
                     const delButton = document.querySelector('.todo-description-div > button');
                     delButton.remove();
