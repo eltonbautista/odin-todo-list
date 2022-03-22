@@ -67,7 +67,7 @@ const createFolder = function createFolder () {
         
         const createFolderButtons = function(i, y) {
             const testArr = [];
-
+            
             const tester = JSON.parse(localStorage.getItem('myFolders'));
             
             const folderButton = document.createElement('button');
@@ -78,7 +78,7 @@ const createFolder = function createFolder () {
             
 
             folderButton.addEventListener('click', function() {
-            
+            console.log(myTodoArray);
             mainPageControl.clearDiv();
             const tdcDiv = document.createElement('div');
             tdcDiv.innerText = folderName;
@@ -213,7 +213,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
                     
 
                     testSubj.createFolderButtons(i).addEventListener('click', function() {
-                        
+                        console.log(testSubj.myTodoArray);
                         
                         this.removeEventListener('click', testSubj.pleaseWork);
 
@@ -222,14 +222,7 @@ const mainPageControl = (function mainPageControlModulePattern () {
                        
                         testSubj.myTodoArray.forEach(e => {
                             Object.assign(e, newTodoFactory(e.task, e.start, e.end));
-                            e.createTodo().addEventListener('click', function() {
-                                localStorage.setItem(`checked_${i}`, this.checked);
-
-                                
-                                if(this.checked === true) {
-                                    document.querySelector("#todo-ul > li:nth-child(1) > span:nth-child(1)").style.textDecoration = 'line-through';
-                                }
-                            })
+                            e.createTodo();
                         });
 
                         

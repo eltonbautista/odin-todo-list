@@ -24,40 +24,44 @@ export const newTodoFactory = function newTodoFormFunction (task, start, end) {
         todoUL.append(todoLI);
 
         todoCheckbox.addEventListener('click', function() {
-
+            
             if (this.checked === true) {
-                return checked[0] = 1;
+                todoLITask.style.textDecoration = 'line-through';
+                todoLIStart.style.textDecoration = 'line-through';
+                todoLIEnd.style.textDecoration = 'line-through';
+                 checked[0] = 1;
             } else if (this.checked === false) {
-                return checked[0] = 0;
+                todoLITask.style.textDecoration = 'none';
+                todoLIStart.style.textDecoration = 'none';
+                todoLIEnd.style.textDecoration = 'none';
+                 checked[0] = 0;
             };
+            console.log(checked);
         });
 
         if (checked[0] === 1) {
             todoCheckbox.checked = true;
+            todoLITask.style.textDecoration = 'line-through';
+            todoLIStart.style.textDecoration = 'line-through';
+            todoLIEnd.style.textDecoration = 'line-through';
         } else if (checked[0] === 0) {
             todoCheckbox.checked = false;
+            todoLITask.style.textDecoration = 'none';
+            todoLIStart.style.textDecoration = 'none';
+            todoLIEnd.style.textDecoration = 'none';
         };
-
+        
         return todoCheckbox;
     };
 
     
 
-    // const checkTodo = function () {
-
-    //     if (checked[0] === 1) {
-    //         createTodo().checked = true;
-    //     } else if (checked[0] === 0) {
-    //         createTodo().checked = false;
-    //     };
-
-    // };
     
     return {
         createTodo,
         task,
         start,
         end,
-        // checkTodo
+        checked
     };
 };
