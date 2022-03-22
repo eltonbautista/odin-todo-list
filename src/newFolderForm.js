@@ -211,19 +211,36 @@ const mainPageControl = (function mainPageControlModulePattern () {
 
                     testSubj.myTodoArray = deserializeMyFolders[i].myTodoArray;
                     
-
                     testSubj.createFolderButtons(i).addEventListener('click', function() {
-                        console.log(testSubj.myTodoArray);
+                        const deserializeMyFolders = JSON.parse(localStorage.getItem('myFolders')).filter(a => a != null);
                         
                         this.removeEventListener('click', testSubj.pleaseWork);
 
                         const todoInputArray = [document.querySelector('#todo-task'), 
             document.querySelector('#todo-due-date-start'), document.querySelector('#todo-due-date-end')];
                        
-                        testSubj.myTodoArray.forEach(e => {
-                            Object.assign(e, newTodoFactory(e.task, e.start, e.end));
-                            e.createTodo();
-                        });
+                        
+                        for (let j = 0; j < testSubj.myTodoArray.length; j++) {
+                            const e = testSubj.myTodoArray[j];
+                            const k = deserializeMyFolders[i].myTodoArray[j];
+                            // Object.assign(e, newTodoFactory(e.task, e.start, e.end));
+                           let l = newTodoFactory(e.task, e.start, e.end);
+                        //    e.createTodo;
+                           console.log(l);
+                           l.checked = k.checked;
+                           l.createTodo();
+                        };
+                   
+                        
+
+
+                        // testSubj.myTodoArray.forEach(e => {
+                        //     console.log(deserializeMyFolders[0].myTodoArray);
+
+                            
+                        //     e.createTodo();
+                        //     // console.log(test.checked);
+                        // });
 
                         
                     const delButton = document.querySelector('.todo-description-div > button');

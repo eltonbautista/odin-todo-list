@@ -2,7 +2,7 @@ export const newTodoFactory = function newTodoFormFunction (task, start, end) {
     const checked = [];
     let i = 0;
     const createTodo = function createTodo () {
-
+        
 
         const todoUL = document.querySelector('#todo-ul');
         const todoLI = document.createElement('li');
